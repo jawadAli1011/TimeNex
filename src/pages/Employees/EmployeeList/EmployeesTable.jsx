@@ -1,4 +1,5 @@
 import React from "react";
+import GetColor from "../../../utills/GetColor";
 
 const tabelHeader = [
   "Employee",
@@ -28,7 +29,7 @@ const tableData = [
     role: "HR Manager",
     department: "Human Resources",
     joinDate: "Feb 05, 2024",
-    status: "Active",
+    status: "inactive",
   },
   {
     logo: "MJ",
@@ -38,7 +39,7 @@ const tableData = [
     role: "Sales Executive",
     department: "Sales",
     joinDate: "Mar 18, 2024",
-    status: "On Leave",
+    status: "on_leave",
   },
   {
     logo: "JD",
@@ -58,7 +59,7 @@ const tableData = [
     role: "HR Manager",
     department: "Human Resources",
     joinDate: "Feb 05, 2024",
-    status: "Active",
+    status: "inactive",
   },
   {
     logo: "MJ",
@@ -68,7 +69,7 @@ const tableData = [
     role: "Sales Executive",
     department: "Sales",
     joinDate: "Mar 18, 2024",
-    status: "On Leave",
+    status: "on_leave",
   },
 ];
 
@@ -110,8 +111,15 @@ function EmployeesTable() {
               <td className="text-xs color-var(--text-dim)">Engineering</td>
               <td> {td.joinDate} </td>
               <td>
-                <span className="badge b-green">
-                  <span className="dot"></span> {td.status}
+                <span
+                  className="badge b-green"
+                  style={{ color: GetColor(td.status) }}
+                >
+                  <span
+                    className="dot"
+                    style={{ backgroundColor: GetColor(td.status) }}
+                  ></span>
+                  {td.status}
                 </span>
               </td>
               <td className="text-right">

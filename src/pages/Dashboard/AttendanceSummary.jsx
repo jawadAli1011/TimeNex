@@ -1,23 +1,12 @@
 import React from "react";
+import GetColor from "../../utills/GetColor";
+import GitIcon from "../../utills/GitIcon";
 
 function AttendanceSummary({ DATA }) {
   const total_emp = DATA.total_employees;
 
   const formatTitle = (key) => {
     return key.replace(/_/g, " ");
-  };
-
-  const getIcon = (key) => {
-    const colors = {
-      present: "▲",
-      absent: "▼",
-      late: "●",
-      on_leave: "✈",
-      short_leave: "⏳",
-      offday: "🛌",
-      holidays: "📅",
-    };
-    return colors[key] || "gray";
   };
 
   function pct(val, total) {
@@ -30,12 +19,12 @@ function AttendanceSummary({ DATA }) {
       {Object.entries(DATA.stats).map(([key, value]) => (
         <div key={key} className="stat-card">
           <div className="stat-title"> {formatTitle(key)} </div>
-          <div className="stat-val" style={{ color: getColor(key) }}>
+          <div className="stat-val" style={{ color: GetColor(key) }}>
             {" "}
             {value}{" "}
           </div>
           <div className="stat-sub">
-            <span style={{ color: getColor(key) }}>{getIcon(key)}</span>
+            <span style={{ color: GetColor(key) }}>{GitIcon(key)}</span>
             {pct(value, total_emp)} % of total
           </div>
         </div>
