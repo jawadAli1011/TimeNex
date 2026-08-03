@@ -6,11 +6,11 @@ const links = [
   {
     name: "Employees",
     icon: "👥",
-    path: "/employees",
-    children: [
-      { name: "Employees List", path: "/employees/list" },
-      { name: "Add Employee", path: "/employees/add" },
-    ],
+    path: "/employees/list",
+    // children: [
+    //   { name: "Employees List", path: "/employees/list" },
+    //   { name: "Add Employee", path: "/employees/add" },
+    // ],
   },
   { name: "Attendance", icon: "◫", path: "/attendance" },
   { name: "Locations", icon: "📍", path: "/locations" },
@@ -36,7 +36,7 @@ function Sidebar() {
       <nav>
         {links.map((link) => (
           <div key={link.path}>
-            {link.children ? (
+            {/* {link.children ? (
               <div>
                 <button
                   onClick={() =>
@@ -67,20 +67,21 @@ function Sidebar() {
                     ))}
                   </div>
                 )}
+              </div> */}
+            {/* // ) :  */}
+            {/* ( */}
+            <NavLink
+              key={link.path}
+              to={link.path}
+              onClick={() => setOpenMenu("")}
+              className="nav-item"
+            >
+              <div className="flex gap-2">
+                <span className="icon text-center "> {link.icon} </span>
+                <span className="label collapsible">{link.name}</span>
               </div>
-            ) : (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                onClick={() => setOpenMenu("")}
-                className="nav-item"
-              >
-                <div className="flex gap-2">
-                  <span className="icon text-center "> {link.icon} </span>
-                  <span className="label collapsible">{link.name}</span>
-                </div>
-              </NavLink>
-            )}
+            </NavLink>
+            {/* // )} */}
           </div>
         ))}
       </nav>
