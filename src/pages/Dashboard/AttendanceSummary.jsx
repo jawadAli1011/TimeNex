@@ -7,19 +7,6 @@ function AttendanceSummary({ DATA }) {
     return key.replace(/_/g, " ");
   };
 
-  const getColor = (key) => {
-    const colors = {
-      present: "#16a34a",
-      absent: "#dc2626",
-      late: "#d97706",
-      on_leave: "#2563eb",
-      short_leave: "#1e293b",
-      offday: "#2563eb",
-      holidays: "#94a3b8",
-    };
-    return colors[key] || "gray";
-  };
-
   const getIcon = (key) => {
     const colors = {
       present: "▲",

@@ -72,6 +72,8 @@ const tableData = [
   },
 ];
 
+const gitColor = (status) => {};
+
 function EmployeesTable() {
   return (
     <div className="overflow-x-auto">
