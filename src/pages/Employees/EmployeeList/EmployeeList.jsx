@@ -1,9 +1,9 @@
 import React from "react";
-import "../../../CSS/forms.css";
-import EmployeeListHeader from "./EmployeeListHeader";
-import ListFilter from "./ListFilter";
-import EmployeesTable from "./EmployeesTable";
-import Pagination from "./Pagination";
+import "../../../assets/CSS/forms.css";
+import EmployeeListHeader from "./components/EmployeeListHeader";
+import ListFilter from "./components/ListFilter";
+import EmployeesTable from "./components/EmployeesTable";
+import Pagination from "./components/Pagination";
 
 function EmployeeList() {
   return (

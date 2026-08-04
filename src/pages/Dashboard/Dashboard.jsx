@@ -1,9 +1,9 @@
 import React from "react";
-import DashboardHeader from "./DashboardHeader";
-import AttendanceSummary from "./AttendanceSummary";
-import LiveActivity from "./LiveActivity";
-import AttendanceOverviewGraph from "./AttendanceOverviewGraph";
-import DeptBreackdownChart from "./DeptBreackdownChart";
+import DashboardHeader from "./components/DashboardHeader";
+import AttendanceSummary from "./components/AttendanceSummary";
+import LiveActivity from "./components/LiveActivity";
+import AttendanceOverviewGraph from "./components/AttendanceOverviewGraph";
+import DeptBreackdownChart from "./components/DeptBreackdownChart";
 import Data from "../../Data";
 
 function Dashboard() {

@@ -1,16 +1,19 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./CSS/index.css";
+import "./assets/CSS/index.css";
 // import "./CSS/forms.css";
 // import "./CSS/login.css";
 
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
+import AuthProvuder from "./context/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <AuthProvuder>
+        <App />
+      </AuthProvuder>
     </BrowserRouter>
   </StrictMode>,
 );

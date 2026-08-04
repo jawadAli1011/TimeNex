@@ -1,7 +1,38 @@
 import React from "react";
-import "../../CSS/login.css";
+import "../../assets/CSS/login.css";
+import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { login } from "../../api/auth_api";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const { loginUser } = useContext(AuthContext);
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await login(form);
+      loginUser(response.data.token);
+      navigate("/");
+    } catch (error) {
+      alert("Invalid email or password");
+    }
+  };
+
   return (
     <div className="login-container text-[#1e293b] ">
       {/* <!-- Background handled by CSS --> */}
@@ -16,14 +47,15 @@ function Login() {
           <p>Please enter your details to sign in.</p>
         </div>
 
-        <form className="login-form">
+        <form onSubmit={handleSubmit} className="login-form">
           <div className="input-group">
             <label htmlFor="email">Email</label>
             <input
               type="email"
-              id="email"
+              name="email"
               placeholder="Enter your email"
               required
+              onChange={handleChange}
             />
           </div>
 
@@ -31,9 +63,10 @@ function Login() {
             <label htmlFor="password">Password</label>
             <input
               type="password"
-              id="password"
+              name="password"
               placeholder="••••••••"
               required
+              onChange={handleChange}
             />
           </div>
 

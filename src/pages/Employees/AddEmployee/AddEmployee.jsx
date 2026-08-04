@@ -1,9 +1,9 @@
 import React from "react";
-import AddEmpHeader from "./AddEmpHeader";
-import EmpBasicInfo from "./EmpBasicInfo";
-import DeptAndServiceInfo from "./DeptAndServiceInfo";
-import RegionAndDemographics from "./RegionAndDemographics";
-import TimeAndRoster from "./TimeAndRoster";
+import AddEmpHeader from "./components/AddEmpHeader";
+import EmpBasicInfo from "./components/EmpBasicInfo";
+import DeptAndServiceInfo from "./components/DeptAndServiceInfo";
+import RegionAndDemographics from "./components/RegionAndDemographics";
+import TimeAndRoster from "./components/TimeAndRoster";
 
 function AddEmployee() {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import GetColor from "../../../utills/GetColor";
+import GetColor from "../../../../utills/GetColor";
 
 const tabelHeader = [
   "Employee",

@@ -1,6 +1,6 @@
 import React from "react";
-import GetColor from "../../utills/GetColor";
-import GitIcon from "../../utills/GitIcon";
+import GetColor from "../../../utills/GetColor";
+import GitIcon from "../../../utills/GitIcon";
 
 function AttendanceSummary({ DATA }) {
   const total_emp = DATA.total_employees;
