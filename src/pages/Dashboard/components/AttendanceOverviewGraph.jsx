@@ -1,15 +1,14 @@
 import React from "react";
 
-function AttendanceOverviewGraph({ DATA }) {
-  const { stats, total_employees } = DATA;
+function AttendanceOverviewGraph({ present, late, totalEmployees }) {
   function pct(val, total) {
     return total > 0 ? ((val / total) * 100).toFixed(1) : "0";
   }
 
-  let presentCount = stats.present + stats.late;
-  let absentCount = total_employees - presentCount;
-  let presentPct = (presentCount / total_employees) * 100;
-  let absentPct = (absentCount / total_employees) * 100;
+  let presentCount = present.length + late.length;
+  let absentCount = totalEmployees - presentCount;
+  let presentPct = (presentCount / totalEmployees) * 100;
+  let absentPct = (absentCount / totalEmployees) * 100;
 
   return (
     <div className="card flex flex-col items-center">
@@ -53,7 +52,7 @@ function AttendanceOverviewGraph({ DATA }) {
         </svg>
         <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2  text-center">
           <div className=" font-[800px] text-[24px] text-(--text) leading-none ">
-            {pct(presentCount, total_employees)}%
+            {pct(presentCount, totalEmployees)}%
           </div>
           <div className="text-[10px] text-(--text-dim) font-[600px]">
             Present

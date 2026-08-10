@@ -6,14 +6,17 @@ import "./assets/CSS/index.css";
 
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
-import AuthProvuder from "./context/AuthContext.jsx";
+import AuthProvider from "./context/AuthContext.jsx";
+import { DashboardProvider } from "./context/DashboardContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <AuthProvuder>
-        <App />
-      </AuthProvuder>
+      <AuthProvider>
+        <DashboardProvider>
+          <App />
+        </DashboardProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
 );

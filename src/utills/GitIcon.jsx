@@ -10,7 +10,7 @@ function GitIcon(key) {
     offday: "🛌",
     holidays: "📅",
   };
-  return colors[key] || "gray";
+  return colors[key] || "";
 }
 
 export default GitIcon;

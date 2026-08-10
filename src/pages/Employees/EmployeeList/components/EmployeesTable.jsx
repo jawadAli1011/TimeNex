@@ -1,81 +1,30 @@
 import React from "react";
 import GetColor from "../../../../utills/GetColor";
+import getEmpLogo from "../../../../utills/GetEmpLogo";
+import { useDashboard } from "../../../../context/DashboardContext";
+import { useEffect } from "react";
 
 const tabelHeader = [
   "Employee",
   "Id / Role",
   "Department",
-  "Joined Date",
+  "Designation",
   "Status",
   "Actions",
 ];
 
-const tableData = [
-  {
-    logo: "JD",
-    name: "John Doe",
-    gmail: "john.doe@example.com",
-    id: "EMP-1001",
-    role: "Senior Developer",
-    department: "Engineering",
-    joinDate: "Jan 12, 2024",
-    status: "active",
-  },
-  {
-    logo: "AS",
-    name: "Alice Smith",
-    gmail: "alice.smith@example.com",
-    id: "EMP-1002",
-    role: "HR Manager",
-    department: "Human Resources",
-    joinDate: "Feb 05, 2024",
-    status: "inactive",
-  },
-  {
-    logo: "MJ",
-    name: "Michael Johnson",
-    gmail: "michael.j@example.com",
-    id: "EMP-1003",
-    role: "Sales Executive",
-    department: "Sales",
-    joinDate: "Mar 18, 2024",
-    status: "on_leave",
-  },
-  {
-    logo: "JD",
-    name: "John Doe",
-    gmail: "john.doe@example.com",
-    id: "EMP-1004",
-    role: "Senior Developer",
-    department: "Engineering",
-    joinDate: "Jan 12, 2024",
-    status: "active",
-  },
-  {
-    logo: "AS",
-    name: "Alice Smith",
-    gmail: "alice.smith@example.com",
-    id: "EMP-1005",
-    role: "HR Manager",
-    department: "Human Resources",
-    joinDate: "Feb 05, 2024",
-    status: "inactive",
-  },
-  {
-    logo: "MJ",
-    name: "Michael Johnson",
-    gmail: "michael.j@example.com",
-    id: "EMP-1006",
-    role: "Sales Executive",
-    department: "Sales",
-    joinDate: "Mar 18, 2024",
-    status: "on_leave",
-  },
-];
+function EmployeesTable({ filteredEmp }) {
+  const { dashboardData, loading, error, fetchDashboard } = useDashboard();
 
-const gitColor = (status) => {};
+  if (loading) return <div>Loading...</div>;
 
-function EmployeesTable() {
+  if (filteredEmp.length === 0)
+    return (
+      <div style={{ marginBottom: "20px" }} className=" text-xl text-red-500">
+        Employee Not Found
+      </div>
+    );
+
   return (
     <div className="overflow-x-auto">
       <table className="tbl">
@@ -87,29 +36,29 @@ function EmployeesTable() {
           </tr>
         </thead>
         <tbody>
-          {tableData.map((td) => (
+          {filteredEmp.map((td) => (
             <tr key={td.id}>
               <td>
                 <div className="flex items-center gap-3">
                   <div className="w-8.5 h-8.5 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-semibold text-[13px]">
-                    {td.logo}
+                    {getEmpLogo(td.name)}
                   </div>
                   <div>
                     <div className="font-semibold text-[13px]"> {td.name} </div>
-                    <div className="text-[11px] text-gray-500 mt-0.5">
+                    {/* <div className="text-[11px] text-gray-500 mt-0.5">
                       {td.gmail}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </td>
               <td className="font-medium text-[12px] color-[var(--text)]">
                 <div> {td.id} </div>
                 <div className="text-[11px] text-gray-500 mt-0.5">
-                  {td.role}
+                  {td.designation}
                 </div>
               </td>
-              <td className="text-xs color-var(--text-dim)">Engineering</td>
-              <td> {td.joinDate} </td>
+              <td className="text-xs color-var(--text-dim)">{td.department}</td>
+              <td> {td.designation} </td>
               <td>
                 <span
                   className="badge b-green"
@@ -122,7 +71,7 @@ function EmployeesTable() {
                   {td.status}
                 </span>
               </td>
-              <td className="text-right">
+              <td className="text-right flex">
                 <button className="btn-icon" title="View Profile">
                   👁️
                 </button>

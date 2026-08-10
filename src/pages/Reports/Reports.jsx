@@ -1,7 +1,18 @@
 import React from "react";
-import Data from "../../Data";
+import { useDashboard } from "../../context/DashboardContext";
+import GetColor from "../../utills/GetColor";
 function Reports() {
-  const DATA = Data();
+  const { dashboardData, loading } = useDashboard();
+
+  const allRecords = Object.values(
+    dashboardData?.data?.drilldown_data || {},
+  ).flat();
+
+  const uniqueEmployees = [
+    ...new Map(allRecords.map((emp) => [emp.id, emp])).values(),
+  ];
+
+  if (loading) return <div>Loading...</div>;
   return (
     <>
       {" "}
@@ -20,15 +31,7 @@ function Reports() {
             </tr>
           </thead>
           <tbody>
-            {DATA.employees.map((emp) => {
-              let badgeClass =
-                emp.status === "present"
-                  ? "b-green"
-                  : emp.status === "late"
-                    ? "b-amber"
-                    : emp.status === "leave"
-                      ? "b-blue"
-                      : "b-red";
+            {uniqueEmployees.map((emp) => {
               return (
                 <tr key={emp.id}>
                   <td>
@@ -45,11 +48,24 @@ function Reports() {
                       ID: {emp.id}
                     </div>
                   </td>
-                  <td style={{ color: "var(--text-dim)" }}>{emp.desig}</td>
-                  <td style={{ color: "var(--text-dim)" }}>{emp.dept}</td>
+                  <td style={{ color: "var(--text-dim)" }}>
+                    {emp.designation}
+                  </td>
+                  <td style={{ color: "var(--text-dim)" }}>{emp.department}</td>
                   <td>
-                    <span className={`badge ${badgeClass}`}>
-                      <span className="dot"></span> {emp.status}
+                    <span
+                      className={"badge b-green"}
+                      style={{
+                        color: GetColor(emp.status),
+                      }}
+                    >
+                      <span
+                        className="dot"
+                        style={{
+                          backgroundColor: GetColor(emp.status),
+                        }}
+                      ></span>{" "}
+                      {emp.status}
                     </span>
                   </td>
                 </tr>

@@ -7,12 +7,16 @@ function GetColor(key) {
     inactive: "#dc2626",
     absent: "#dc2626",
     late: "#d97706",
-    on_leave: "#2563eb",
-    short_leave: "#1e293b",
+    leave: "#2563eb",
+    shortleave: "#1e293b",
     offday: "#2563eb",
+    night_shift: "#1e293b",
     holidays: "#94a3b8",
+    no_time_category: "#dc2626",
+    attach: "#16a34a",
+    earlyout: "#94a3b8",
   };
-  return colors[key] || "gray";
+  return colors[key] || "#94a3b8";
 }
 
 export default GetColor;
