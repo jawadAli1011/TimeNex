@@ -110,11 +110,11 @@ body {
 }
 
 .input-group input {
-    width: 100%;
+    /* width: 100%;
     padding: 14px 16px;
     background: #ffffff;
     border: 1px solid #cbd5e1;
-    border-radius: 10px;
+    border-radius: 10px; */
     color: #1e293b;
     font-size: 14px;
     transition: all 0.2s;
@@ -127,10 +127,10 @@ body {
     color: #94a3b8;
 }
 
-.input-group input:focus {
+/* .input-group input:focus {
     border-color: #92700a;
     box-shadow: 0 0 0 3px rgba(146, 112, 10, 0.12);
-}
+} */
 
 /* Actions */
 .form-actions {

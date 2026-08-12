@@ -20,7 +20,6 @@ function Dashboard() {
   const stats = dashboardData?.data?.stats || {};
 
   if (loading) return <div>loading...</div>;
-  // if (error) return <div> Error {error}</div>;
 
   return (
     // <!-- Header -->

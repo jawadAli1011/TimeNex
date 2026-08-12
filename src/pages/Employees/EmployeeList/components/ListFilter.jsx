@@ -38,7 +38,8 @@ function ListFilter({
   };
 
   if (loading) return <div> Loading... {loading}</div>;
-  if (error) return <div> Error {error}</div>;
+  if (error) return <div> Error...</div>;
+  // console.log(error);
 
   return (
     <div className="flex gap-3 mb-5 flex-wrap" style={{ marginBottom: "20px" }}>

@@ -3,12 +3,13 @@ import "../../assets/CSS/login.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { login } from "../../api/auth_api";
+import { Eye, EyeOff } from "lucide-react";
 
 function Login() {
+  const [showP, setShowP] = useState(false);
   const navigate = useNavigate();
 
-  const { loginUser } = useContext(AuthContext);
+  const { fetchAuth } = useContext(AuthContext);
 
   const [form, setForm] = useState({
     email: "",
@@ -24,13 +25,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await login(form);
-      loginUser(response.data.token);
-      navigate("/");
-    } catch (error) {
-      alert("Invalid email or password");
-    }
+    fetchAuth(form);
   };
 
   return (
@@ -56,18 +51,41 @@ function Login() {
               placeholder="Enter your email"
               required
               onChange={handleChange}
+              style={{
+                padding: "14px 16px",
+                background: "#ffffff",
+                border: "1px solid #cbd5e1",
+                borderRadius: "10px",
+              }}
             />
           </div>
 
           <div className="input-group">
             <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="••••••••"
-              required
-              onChange={handleChange}
-            />
+            <div
+              style={{
+                padding: "14px 16px",
+                background: "#ffffff",
+                border: "1px solid #cbd5e1",
+                borderRadius: "10px",
+              }}
+              className="flex items-center justify-between  "
+            >
+              <input
+                type={showP ? "text" : "password"}
+                name="password"
+                placeholder="Enter your password"
+                required
+                onChange={handleChange}
+              />
+              <span
+                className="hover:text-[#b8941a]"
+                onClick={() => setShowP(!showP)}
+              >
+                {" "}
+                {showP ? <EyeOff size={18} /> : <Eye size={18} />}{" "}
+              </span>
+            </div>
           </div>
 
           <div className="form-actions">

@@ -1,26 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-
-const links = [
-  { name: "Dashboard", icon: "◫", path: "/" },
-  {
-    name: "Employees",
-    icon: "👥",
-    path: "/employees/list",
-    // children: [
-    //   { name: "Employees List", path: "/employees/list" },
-    //   { name: "Add Employee", path: "/employees/add" },
-    // ],
-  },
-  { name: "Attendance", icon: "◫", path: "/attendance" },
-  { name: "Locations", icon: "📍", path: "/locations" },
-  { name: "Departments", icon: "◫", path: "/departments" },
-  { name: "Reports", icon: "◫", path: "/reports" },
-  { name: "Settings", icon: "◫", path: "/settings" },
-];
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 function Sidebar() {
+  const { menu } = useContext(AuthContext);
+
+  const sideMenu = {
+    id: Date.now(),
+    name: "Dashboard",
+    route: "/",
+  };
+
+  const fullMenu = [sideMenu, ...menu];
   const [openMenu, setOpenMenu] = useState(null);
+
   return (
     <aside id="sidebar">
       <div className="sidebar-logo">
@@ -34,8 +28,8 @@ function Sidebar() {
       <div className="nav-label collapsible">Navigation</div>
 
       <nav>
-        {links.map((link) => (
-          <div key={link.path}>
+        {fullMenu.map((item) => (
+          <div key={item.id}>
             {/* {link.children ? (
               <div>
                 <button
@@ -71,14 +65,14 @@ function Sidebar() {
             {/* // ) :  */}
             {/* ( */}
             <NavLink
-              key={link.path}
-              to={link.path}
+              key={item.id}
+              to={item.route}
               onClick={() => setOpenMenu("")}
               className="nav-item"
             >
               <div className="flex gap-2">
-                <span className="icon text-center "> {link.icon} </span>
-                <span className="label collapsible">{link.name}</span>
+                {/* <span className="icon text-center "> {item.icon} </span> */}
+                <span className="label collapsible">{item.name}</span>
               </div>
             </NavLink>
             {/* // )} */}
