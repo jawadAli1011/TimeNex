@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import Footer from "../Footer/Footer";
+import { ChevronLeft, ChevronDown } from "lucide-react";
 
 function Sidebar() {
-  const { menu } = useContext(AuthContext);
+  const { menu, logoutUser } = useContext(AuthContext);
 
   const sideMenu = {
     id: Date.now(),
@@ -27,61 +29,56 @@ function Sidebar() {
 
       <div className="nav-label collapsible">Navigation</div>
 
-      <nav>
-        {fullMenu.map((item) => (
-          <div key={item.id}>
-            {/* {link.children ? (
-              <div>
-                <button
-                  onClick={() =>
-                    setOpenMenu(openMenu === link.name ? null : link.name)
-                  }
-                  className="nav-item"
-                >
-                  <div>
-                    <span> {link.icon} </span>
-                    <span className="collapsible">{link.name} </span>
-                    <span className="collapsible">
-                      {" "}
-                      {openMenu === link.name ? "v" : ">"}{" "}
-                    </span>
-                  </div>
-                </button>
+      <nav className="flex flex-col ">
+        {fullMenu.map((item) => {
+          const isOpen = openMenu === item.name;
 
-                {openMenu === link.name && (
-                  <div>
-                    {link.children.map((child) => (
-                      <NavLink
-                        className="nav-item nav-item-child"
-                        key={child.path}
-                        to={child.path}
-                      >
-                        . {child.name}
-                      </NavLink>
-                    ))}
-                  </div>
-                )}
-              </div> */}
-            {/* // ) :  */}
-            {/* ( */}
-            <NavLink
-              key={item.id}
-              to={item.route}
-              onClick={() => setOpenMenu("")}
-              className="nav-item"
-            >
-              <div className="flex gap-2">
-                {/* <span className="icon text-center "> {item.icon} </span> */}
-                <span className="label collapsible">{item.name}</span>
-              </div>
-            </NavLink>
-            {/* // )} */}
-          </div>
-        ))}
+          return (
+            <div key={item.id}>
+              <NavLink
+                key={item.id}
+                to={item.route}
+                onClick={() => setOpenMenu(item.name)}
+                className={`nav-item ${isOpen ? "activeTab" : ""}`}
+              >
+                <div className="flex justify-between">
+                  {/* <span className="icon text-center "> {item.icon} </span> */}
+                  <span className="label collapsible">{item.name}</span>
+                  {item.sub_menus && (
+                    <span>
+                      {isOpen ? (
+                        <ChevronDown size={18} />
+                      ) : (
+                        <ChevronLeft size={18} />
+                      )}
+                    </span>
+                  )}
+                </div>
+              </NavLink>
+              {item.sub_menus && isOpen && (
+                <div className="child">
+                  {item.sub_menus?.map((subItem) => (
+                    <NavLink
+                      key={subItem.id}
+                      to={subItem.route.replaceAll("#", "/")}
+                      className="nav-item "
+                    >
+                      <div className="flex gap-2">
+                        {/* <span className="icon text-center "> {item.icon} </span> */}
+                        <span className="label collapsible">
+                          {subItem.name}
+                        </span>
+                      </div>
+                    </NavLink>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </nav>
-      <div className="sidebar-footer collapsible">
-        TimeNex Dashboard <br /> System Active{" "}
-      </div>
+
+      <Footer />
     </aside>
   );
 }

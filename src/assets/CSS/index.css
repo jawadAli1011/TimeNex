@@ -41,7 +41,7 @@
 
         /* ── Sidebar ── */
         #sidebar {
-            width: 200px;
+            width: 230px;
             min-height: 100vh;
             background: var(--bg-sidebar);
             border-right: 1px solid var(--border);
@@ -56,9 +56,9 @@
             overflow-y: auto
         }
 
-        #sidebar.collapsed {
+        /* #sidebar.collapsed {
             width: 52px
-        }
+        } */
 
         .sidebar-logo {
             cursor: pointer;
@@ -123,21 +123,30 @@
             transition: all .15s;
             white-space: nowrap
         }
-        .nav-item div .collapssible{
+        /* .nav-item div .collapssible{
             display: none;
-        }
+        } */
 
-        .nav-item.active {
+        .activeTab {
             background: rgba(200, 169, 96, 0.15);
             color: #c8a960;
             font-weight: 600
         }
 
-        .nav-item:not(.active):hover {
+        .nav-item:hover {
             background: rgba(255, 255, 255, 0.06)
         }
-        .nav-item-child{
-            padding-left: 20px;
+        .logout:hover {
+            background: rgba(255, 255, 255, 0.06);
+            padding:  2px 4px;
+        }
+        /* .nav-item:not(.active):hover {
+            background: rgba(255, 255, 255, 0.06)
+        } */
+        /* .nav-item */
+        .child{
+            border-radius: 7px;
+            background-color: #1b2431;
         }
 
         .nav-item .icon {
@@ -145,19 +154,19 @@
             min-width: 18px;
             text-align: center
         }
-        .nav-item .icon.collapsed{
+        /* .nav-item .icon.collapsed{
             text-align: center;
-        }
+        } */
 
-        #sidebar.collapsed .nav-item {
+        /* #sidebar.collapsed .nav-item {
             
             padding: 9px 14px;
             justify-content: center
-        }
+        } */
 
-        #sidebar.collapsed .nav-item .label {
+        /* #sidebar.collapsed .nav-item .label {
             display: none
-        }
+        } */
 
         .sidebar-footer {
             margin-top: auto;
@@ -168,13 +177,13 @@
             text-align: center
         }
 
-        .collapsible {
+        /* .collapsible {
             overflow: hidden
-        }
+        } */
 
-        #sidebar.collapsed .collapsible {
+        /* #sidebar.collapsed .collapsible {
             display: none
-        }
+        } */
 
         /* ── Main ── */
         #main {
@@ -302,7 +311,7 @@
         /* ── Custom Widgets ── */
         .stat-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 12px;
             margin-bottom: 16px;
         }

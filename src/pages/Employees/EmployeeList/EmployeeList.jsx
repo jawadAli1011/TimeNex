@@ -6,9 +6,10 @@ import EmployeesTable from "./components/EmployeesTable";
 import Pagination from "./components/Pagination";
 import { useDashboard } from "../../../context/DashboardContext";
 import { useEffect } from "react";
+import PageLoader from "../../../components/PageLoader";
 
 function EmployeeList() {
-  const { dashboardData, error, fetchDashboard } = useDashboard();
+  const { dashboardData, error, fetchDashboard, loading } = useDashboard();
 
   useEffect(() => {
     if (!dashboardData) {
@@ -59,6 +60,7 @@ function EmployeeList() {
     statusFilter,
   );
 
+  if (loading) return <PageLoader />;
   return (
     <>
       <EmployeeListHeader />

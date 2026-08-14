@@ -7,7 +7,7 @@ function ListFilter({
   setDesigFilter,
   setStatusFilter,
 }) {
-  const { dashboardData, error, loading } = useDashboard();
+  const { dashboardData } = useDashboard();
 
   const allDept = [
     "All Department",
@@ -36,10 +36,6 @@ function ListFilter({
     setDesigFilter(role);
     setStatusFilter(stats);
   };
-
-  if (loading) return <div> Loading... {loading}</div>;
-  if (error) return <div> Error...</div>;
-  // console.log(error);
 
   return (
     <div className="flex gap-3 mb-5 flex-wrap" style={{ marginBottom: "20px" }}>

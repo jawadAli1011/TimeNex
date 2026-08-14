@@ -36,6 +36,7 @@ export default function AuthProvider({ children }) {
     localStorage.removeItem("token");
     localStorage.removeItem("menu");
     setToken(null);
+    window.location.href = "/login";
   };
 
   return (

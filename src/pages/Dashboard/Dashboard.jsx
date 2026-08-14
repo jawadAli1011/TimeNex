@@ -7,6 +7,7 @@ import DeptBreackdownChart from "./components/DeptBreackdownChart";
 
 import { useEffect } from "react";
 import { useDashboard } from "../../context/DashboardContext";
+import PageLoader from "../../components/PageLoader";
 
 function Dashboard() {
   const { dashboardData, loading, error } = useDashboard();
@@ -19,7 +20,7 @@ function Dashboard() {
   const deptStatsDetail = dashboardData?.data?.deptStatsDetail || {};
   const stats = dashboardData?.data?.stats || {};
 
-  if (loading) return <div>loading...</div>;
+  if (loading) return <PageLoader />;
 
   return (
     // <!-- Header -->
