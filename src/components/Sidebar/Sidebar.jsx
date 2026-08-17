@@ -4,9 +4,14 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Footer from "../Footer/Footer";
 import { ChevronLeft, ChevronDown } from "lucide-react";
+import GitIcon from "../../utills/GitIcon";
+import { useDashboard } from "../../context/DashboardContext";
+import Tooltip from "@mui/material/Tooltip";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 function Sidebar() {
-  const { menu, logoutUser } = useContext(AuthContext);
+  const { menu } = useContext(AuthContext);
+  const { fetchDashboard } = useDashboard();
 
   const sideMenu = {
     id: Date.now(),
@@ -15,37 +20,75 @@ function Sidebar() {
   };
 
   const fullMenu = [sideMenu, ...menu];
-  const [openMenu, setOpenMenu] = useState(null);
+  const [openMenu, setOpenMenu] = useState("Dashboard");
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   return (
-    <aside id="sidebar">
+    <aside id="sidebar" className={`${openSidebar ? "" : "sidebar"}`}>
       <div className="sidebar-logo">
-        <div className="logo-icon">TN</div>
-        <div className="logo-text collapsible">
+        <Tooltip title={openSidebar ? "Close Sidebar" : "Open Sidebar"}>
+          <div
+            className="logo-icon"
+            onClick={() => setOpenSidebar(!openSidebar)}
+          >
+            TN
+          </div>
+        </Tooltip>
+        <div className={`logo-text ${openSidebar ? "" : "collapsible"}`}>
           TimeNex <br />
           <span>Executive Summary</span>
         </div>
+        <Tooltip title="Refresh" placement="right">
+          <RefreshIcon
+            className={`${openSidebar ? "" : "collapsible"}`}
+            onClick={() => fetchDashboard()}
+          />
+        </Tooltip>
       </div>
-
-      <div className="nav-label collapsible">Navigation</div>
 
       <nav className="flex flex-col ">
         {fullMenu.map((item) => {
           const isOpen = openMenu === item.name;
+
+          const menuToggle = function (menu) {
+            isOpen === true ? setOpenMenu(null) : setOpenMenu(menu);
+          };
 
           return (
             <div key={item.id}>
               <NavLink
                 key={item.id}
                 to={item.route}
-                onClick={() => setOpenMenu(item.name)}
+                onClick={() => {
+                  {
+                    menuToggle(item.name);
+                    setOpenSidebar(true);
+                  }
+                }}
                 className={`nav-item ${isOpen ? "activeTab" : ""}`}
               >
                 <div className="flex justify-between">
-                  {/* <span className="icon text-center "> {item.icon} </span> */}
-                  <span className="label collapsible">{item.name}</span>
+                  <div className="flex items-center gap-2">
+                    <Tooltip
+                      key={item.name}
+                      title={openSidebar ? item.name : ""}
+                      placement="right"
+                    >
+                      <span className="icon text-center">
+                        {GitIcon(item.name)}
+                      </span>
+                    </Tooltip>
+
+                    <span
+                      className={`label ${openSidebar ? "" : "collapsible"}`}
+                    >
+                      {item.name}
+                    </span>
+                  </div>
                   {item.sub_menus && (
-                    <span>
+                    <span
+                      className={`arrowIcon ${openSidebar ? "" : "collapsible"}`}
+                    >
                       {isOpen ? (
                         <ChevronDown size={18} />
                       ) : (
@@ -62,10 +105,15 @@ function Sidebar() {
                       key={subItem.id}
                       to={subItem.route.replaceAll("#", "/")}
                       className="nav-item "
+                      onClick={() => {
+                        setOpenSidebar(false);
+                        menuToggle(item.name);
+                      }}
                     >
                       <div className="flex gap-2">
-                        {/* <span className="icon text-center "> {item.icon} </span> */}
-                        <span className="label collapsible">
+                        <span
+                          className={`label ${openSidebar ? "collapsible" : ""}`}
+                        >
                           {subItem.name}
                         </span>
                       </div>

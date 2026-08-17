@@ -66,6 +66,7 @@
             padding: 0 6px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 8px;
             color: #fff;
         }
@@ -137,8 +138,9 @@
             background: rgba(255, 255, 255, 0.06)
         }
         .logout:hover {
-            background: rgba(255, 255, 255, 0.06);
-            padding:  2px 4px;
+            /* background: rgba(255, 255, 255, 0.06); */
+            color: var(--red);
+        
         }
         /* .nav-item:not(.active):hover {
             background: rgba(255, 255, 255, 0.06)
@@ -154,19 +156,19 @@
             min-width: 18px;
             text-align: center
         }
-        /* .nav-item .icon.collapsed{
+        .nav-item .icon.collapsed{
             text-align: center;
-        } */
+        }
 
-        /* #sidebar.collapsed .nav-item {
+        #sidebar.collapsed .nav-item {
             
             padding: 9px 14px;
             justify-content: center
-        } */
+        }
 
-        /* #sidebar.collapsed .nav-item .label {
+        #sidebar.collapsed .nav-item .label .arrowIcon {
             display: none
-        } */
+        }
 
         .sidebar-footer {
             margin-top: auto;
@@ -177,13 +179,13 @@
             text-align: center
         }
 
-        /* .collapsible {
+        .collapsible {
             overflow: hidden
-        } */
+        }
 
-        /* #sidebar.collapsed .collapsible {
+        #sidebar.collapsed .collapsible {
             display: none
-        } */
+        }
 
         /* ── Main ── */
         #main {
@@ -464,10 +466,10 @@
         }
 
         @media(max-width:768px) {
-            #sidebar { width: 70px !important }
+            .sidebar { width: 80px !important }
             #sidebar .collapsible { display: none !important }
             #sidebar .nav-item { padding: 9px 14px; justify-content: center }
-            #sidebar .nav-item .label { display: none }
+            /* #sidebar .nav-item .label { display: none } */
             #main { padding: 14px 12px }
             .stat-grid { grid-template-columns: repeat(2, 1fr); }
             .charts-grid { grid-template-columns: 1fr !important; }

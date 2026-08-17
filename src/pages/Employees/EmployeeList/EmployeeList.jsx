@@ -6,7 +6,8 @@ import EmployeesTable from "./components/EmployeesTable";
 import Pagination from "./components/Pagination";
 import { useDashboard } from "../../../context/DashboardContext";
 import { useEffect } from "react";
-import PageLoader from "../../../components/PageLoader";
+import PageLoader from "../../../components/Loading";
+import FetchEmployee from "../FetchEmployee";
 
 function EmployeeList() {
   const { dashboardData, error, fetchDashboard, loading } = useDashboard();
@@ -51,6 +52,8 @@ function EmployeeList() {
     }
     return result.length > 0 ? result : [];
   };
+
+  // FetchEmployee();
 
   const filteredEmp = searchEmployee(
     uniqueEmployees,

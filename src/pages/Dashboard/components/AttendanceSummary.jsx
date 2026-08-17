@@ -2,7 +2,7 @@ import React from "react";
 import GetColor from "../../../utills/GetColor";
 import GitIcon from "../../../utills/GitIcon";
 
-function AttendanceSummary({ stats, totalEmployees }) {
+function AttendanceSummary({ stats, totalEmployees, handleOpen }) {
   const formatTitle = (key) => {
     return key.replace(/_/g, " ");
   };
@@ -15,7 +15,7 @@ function AttendanceSummary({ stats, totalEmployees }) {
     // <!-- Stat Grid -->
     <div className="stat-grid">
       {Object.entries(stats).map(([key, value]) => (
-        <div key={key} className="stat-card">
+        <div key={key} className="stat-card" onClick={() => handleOpen(key)}>
           <div className="stat-title"> {formatTitle(key)} </div>
           <div className="stat-val" style={{ color: GetColor(key) }}>
             {" "}

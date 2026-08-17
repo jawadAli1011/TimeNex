@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [menu, setMenu] = useState(() => {
     const savedMenu = localStorage.getItem("menu");
@@ -19,6 +20,7 @@ export default function AuthProvider({ children }) {
   };
 
   const fetchAuth = async (form) => {
+    setLoading(true);
     try {
       const response = await login(form);
       const token = response.data.token;
@@ -29,6 +31,8 @@ export default function AuthProvider({ children }) {
       navigate("/");
     } catch (error) {
       alert("Invalid email or password");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,6 +51,7 @@ export default function AuthProvider({ children }) {
         loginUser,
         logoutUser,
         fetchAuth,
+        loading,
       }}
     >
       {children}

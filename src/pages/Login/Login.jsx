@@ -9,7 +9,7 @@ function Login() {
   const [showP, setShowP] = useState(false);
   const navigate = useNavigate();
 
-  const { fetchAuth } = useContext(AuthContext);
+  const { fetchAuth, loading } = useContext(AuthContext);
 
   const [form, setForm] = useState({
     email: "",
@@ -98,8 +98,14 @@ function Login() {
             </a>
           </div>
 
-          <button type="submit" className="btn-primary">
-            Sign In
+          <button
+            type="submit"
+            className="btn-primary flex items-center justify-around"
+          >
+            {loading && (
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-200 border-t-[#92700a]" />
+            )}
+            <span>Sign In</span>
           </button>
         </form>
 

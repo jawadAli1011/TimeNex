@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 function Footer() {
+  const { logoutUser } = useContext(AuthContext);
   return (
     <div className="sidebar-footer flex justify-end ">
       <button
