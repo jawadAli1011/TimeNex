@@ -1,7 +1,6 @@
 import React from "react";
 import GetColor from "../../../../utills/GetColor";
 import getEmpLogo from "../../../../utills/GetEmpLogo";
-import { useDashboard } from "../../../../context/DashboardContext";
 import { useEffect } from "react";
 
 const tabelHeader = [
@@ -9,13 +8,11 @@ const tabelHeader = [
   "Id / Role",
   "Department",
   "Designation",
-  "Status",
+  // "Status",
   "Actions",
 ];
 
-function EmployeesTable({ filteredEmp }) {
-  const { dashboardData, loading, error, fetchDashboard } = useDashboard();
-
+function EmployeesTable({ filteredEmp, loading }) {
   if (loading) return <div>Loading...</div>;
 
   if (filteredEmp.length === 0)
@@ -54,12 +51,14 @@ function EmployeesTable({ filteredEmp }) {
               <td className="font-medium text-[12px] color-[var(--text)]">
                 <div> {td.id} </div>
                 <div className="text-[11px] text-gray-500 mt-0.5">
-                  {td.designation}
+                  {td.role?.title}
                 </div>
               </td>
-              <td className="text-xs color-var(--text-dim)">{td.department}</td>
-              <td> {td.designation} </td>
-              <td>
+              <td className="text-xs color-var(--text-dim)">
+                {td.departments?.name}
+              </td>
+              <td> {td.designations?.title} </td>
+              {/* <td>
                 <span
                   className="badge b-green"
                   style={{ color: GetColor(td.status) }}
@@ -70,7 +69,7 @@ function EmployeesTable({ filteredEmp }) {
                   ></span>
                   {td.status}
                 </span>
-              </td>
+              </td> */}
               <td className="text-right flex">
                 <button className="btn-icon" title="View Profile">
                   👁️

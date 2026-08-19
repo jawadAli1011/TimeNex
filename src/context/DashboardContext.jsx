@@ -25,25 +25,16 @@ export const DashboardProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    if (token) {
-      fetchDashboard();
-    } else {
-      setDashboardData(null);
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     fetchDashboard();
+  //   } else {
+  //     setDashboardData(null);
+  //   }
+  // }, [token]);
 
   return (
-    <DashboardContext.Provider
-      value={{
-        dashboardData,
-        loading,
-        error,
-        fetchDashboard,
-      }}
-    >
-      {children}
-    </DashboardContext.Provider>
+    <DashboardContext.Provider value={{}}>{children}</DashboardContext.Provider>
   );
 };
 

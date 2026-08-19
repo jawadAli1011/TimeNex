@@ -1,18 +1,18 @@
-import React from "react";
-import { useState } from "react";
+import { useState, react, useEffect } from "react";
 import DashboardHeader from "./components/DashboardHeader";
 import AttendanceSummary from "./components/AttendanceSummary";
 import LiveActivity from "./components/LiveActivity";
 import AttendanceOverviewGraph from "./components/AttendanceOverviewGraph";
 import DeptBreackdownChart from "./components/DeptBreackdownChart";
+import { getDashboardData } from "../../api/dashboard_api";
 
-import { useEffect } from "react";
-import { useDashboard } from "../../context/DashboardContext";
 import PageLoader from "../../components/Loading";
 import ReusableDialog from "../../components/Modals/ReusableDialog";
 
 function Dashboard() {
-  const { dashboardData, loading, error } = useDashboard();
+  const [dashboardData, setDashboardData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const present = dashboardData?.data?.drilldown_data.present || [];
   const late = dashboardData?.data?.drilldown_data.late || [];
@@ -23,6 +23,32 @@ function Dashboard() {
   const stats = dashboardData?.data?.stats || {};
   const [open, setOpen] = useState(false);
   const [selectedType, setSelectedType] = useState("");
+
+  // fetch DashboardData
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await getDashboardData();
+        setDashboardData(response.data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboard();
+    const handleRefresh = () => {
+      fetchDashboard();
+    };
+    window.addEventListener("page-refresh", handleRefresh);
+    return () => {
+      window.removeEventListener("page-refresh", handleRefresh);
+    };
+  }, []);
 
   // Open modal
   const handleOpen = (type) => {

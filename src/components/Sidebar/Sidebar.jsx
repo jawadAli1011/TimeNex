@@ -11,7 +11,10 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 
 function Sidebar() {
   const { menu } = useContext(AuthContext);
-  const { fetchDashboard } = useDashboard();
+
+  const handleRefresh = () => {
+    window.dispatchEvent(new Event("page-refresh"));
+  };
 
   const sideMenu = {
     id: Date.now(),
@@ -41,7 +44,7 @@ function Sidebar() {
         <Tooltip title="Refresh" placement="right">
           <RefreshIcon
             className={`${openSidebar ? "" : "collapsible"}`}
-            onClick={() => fetchDashboard()}
+            onClick={handleRefresh}
           />
         </Tooltip>
       </div>
@@ -71,7 +74,7 @@ function Sidebar() {
                   <div className="flex items-center gap-2">
                     <Tooltip
                       key={item.name}
-                      title={openSidebar ? item.name : ""}
+                      title={openSidebar ? "" : item.name}
                       placement="right"
                     >
                       <span className="icon text-center">
@@ -112,7 +115,7 @@ function Sidebar() {
                     >
                       <div className="flex gap-2">
                         <span
-                          className={`label ${openSidebar ? "collapsible" : ""}`}
+                          className={`label ${openSidebar ? "" : "collapsible"}`}
                         >
                           {subItem.name}
                         </span>

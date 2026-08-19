@@ -81,7 +81,7 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       >
-        <Route path="/" element={<Dashboard />} />
+        <Route path="" element={<Dashboard />} />
 
         <Route path="/designations">
           <Route index element={<DesignationsList />} />

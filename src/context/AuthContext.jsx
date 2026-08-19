@@ -24,6 +24,7 @@ export default function AuthProvider({ children }) {
     try {
       const response = await login(form);
       const token = response.data.token;
+
       const menus = response.data.assigned_menus;
       loginUser(token, menus);
       setMenu(menus);

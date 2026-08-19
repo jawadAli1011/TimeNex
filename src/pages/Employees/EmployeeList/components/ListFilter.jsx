@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useDashboard } from "../../../../context/DashboardContext";
+import React, { useContext, useEffect, useState } from "react";
+import { departments } from "../../../../api/dept_api";
+import { designations } from "../../../../api/desig_api";
 
 function ListFilter({
   setSearchTerm,
@@ -7,28 +8,50 @@ function ListFilter({
   setDesigFilter,
   setStatusFilter,
 }) {
-  const { dashboardData } = useDashboard();
-
-  const allDept = [
-    "All Department",
-    ...Object.keys(dashboardData?.data?.deptStats || {}),
-  ];
-
-  const allDesig = [
-    "All Designation",
-    ...Object.keys(dashboardData?.data?.desigStats || {}),
-  ];
-
-  const allStatus = [
-    "All Status",
-    ...Object.keys(dashboardData?.data?.stats || {}),
-  ];
-
+  const [fetchedDept, setFetchedDept] = useState([]);
+  const [fetchedDesig, setFetchedDesig] = useState([]);
   const [dept, setDept] = useState("All Department");
-  // const [empId, setEmpId] = useState("");
   const [term, setTerm] = useState("");
   const [role, setRole] = useState("All Designation");
   const [stats, setStats] = useState("All Status");
+  const allDept = ["All Department", ...fetchedDept];
+  const allDesig = ["All Designation", ...fetchedDesig];
+  // const allStatus = [
+  //   "All Status",
+  //   ...Object.keys(dashboardData?.data?.stats || {}),
+  // ];
+
+  useEffect(() => {
+    const fetchDept = async () => {
+      try {
+        const response = await departments();
+        setFetchedDept(response?.data?.data?.map((dept) => dept.name));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const fetchDesig = async () => {
+      try {
+        const response = await designations();
+        setFetchedDesig(response?.data?.data?.map((desig) => desig.title));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchDept();
+    fetchDesig();
+
+    const handleRefresh = () => {
+      fetchDept();
+      fetchDesig();
+    };
+    window.addEventListener("page-refresh", handleRefresh);
+    return () => {
+      window.removeEventListener("page-refresh", handleRefresh);
+    };
+  }, []);
 
   const filterHandler = () => {
     setSearchTerm(term);
@@ -71,7 +94,7 @@ function ListFilter({
           ))}
         </select>
       </div>
-      <div className="w-35  p-2">
+      {/* <div className="w-35  p-2">
         <select
           value={stats}
           onChange={(e) => setStats(e.target.value)}
@@ -81,7 +104,7 @@ function ListFilter({
             <option key={stats}>{stats}</option>
           ))}
         </select>
-      </div>
+      </div> */}
       <button onClick={() => filterHandler()} className="btn btn-secondary">
         Filter
       </button>
