@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const navigate = useNavigate();
+  const [companyName, setCompanyName] = useState("");
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [menu, setMenu] = useState(() => {
@@ -24,6 +25,7 @@ export default function AuthProvider({ children }) {
     try {
       const response = await login(form);
       const token = response.data.token;
+      setCompanyName(response.data.currentUser.departments.name);
 
       const menus = response.data.assigned_menus;
       loginUser(token, menus);
@@ -53,6 +55,7 @@ export default function AuthProvider({ children }) {
         logoutUser,
         fetchAuth,
         loading,
+        companyName,
       }}
     >
       {children}

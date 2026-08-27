@@ -100,10 +100,10 @@ function Login() {
 
           <button
             type="submit"
-            className="btn-primary flex items-center justify-center"
+            className="btn-primary flex gap-2 items-center justify-center"
           >
             {loading && (
-              <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-200 border-t-[#92700a]" />
+              <div className="h-3 w-3 animate-spin rounded-full border-2 border-gray-200 border-t-[#92700a]" />
             )}
             <span>Sign In</span>
           </button>
