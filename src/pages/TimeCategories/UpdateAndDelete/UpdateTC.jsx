@@ -246,11 +246,7 @@ function UpdateTimeCategory({ category, fetchTimeCategory }) {
       };
 
       const response = await updateTimeCategory(category.id, payload);
-
-      console.log("Update Success:", response.data);
-
       setOpen(false);
-
       fetchTimeCategory();
     } catch (error) {
       console.error("Update Error:", error.response?.data || error.message);
@@ -303,65 +299,79 @@ function UpdateTimeCategory({ category, fetchTimeCategory }) {
           >
             Basic Information
           </Typography>
+          <Box
+            sx={{
+              display: "grid",
 
-          {/* TITLE */}
-
-          <TextField
-            label="Title"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            fullWidth
-            required
-            size="small"
-            margin="normal"
-          />
-
-          {/* GRACE TIME */}
-
-          <TimePicker
-            label="Grace Time"
-            value={
-              formData.graceTime
-                ? dayjs(`2000-01-01T${formData.graceTime}`)
-                : null
-            }
-            onChange={(newValue) => {
-              const value = newValue ? newValue.format("HH:mm") : "";
-
-              setFormData((prev) => ({
-                ...prev,
-                graceTime: value,
-              }));
-            }}
-            ampm={false}
-            format="HH:mm"
-            slotProps={{
-              textField: {
-                fullWidth: true,
-                size: "small",
-                margin: "normal",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "1fr 1fr",
+                md: "1fr 1fr 1fr",
               },
+
+              gap: 2,
+
+              mb: 3,
             }}
-          />
+          >
+            {/* TITLE */}
 
-          {/* NIGHT SHIFT */}
+            <TextField
+              label="Title"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              fullWidth
+              required
+              size="small"
+              margin="normal"
+            />
 
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={formData.nightShift}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    nightShift: e.target.checked,
-                  }))
-                }
-              />
-            }
-            label="Night Shift"
-          />
+            {/* GRACE TIME */}
 
+            <TimePicker
+              label="Grace Time"
+              value={
+                formData.graceTime
+                  ? dayjs(`2000-01-01T${formData.graceTime}`)
+                  : null
+              }
+              onChange={(newValue) => {
+                const value = newValue ? newValue.format("HH:mm") : "";
+
+                setFormData((prev) => ({
+                  ...prev,
+                  graceTime: value,
+                }));
+              }}
+              ampm={false}
+              format="HH:mm"
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                  size: "small",
+                  margin: "normal",
+                },
+              }}
+            />
+
+            {/* NIGHT SHIFT */}
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.nightShift}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      nightShift: e.target.checked,
+                    }))
+                  }
+                />
+              }
+              label="Night Shift"
+            />
+          </Box>
           <Divider sx={{ my: 2 }} />
 
           {/* =========================

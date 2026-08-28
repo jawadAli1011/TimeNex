@@ -10,22 +10,16 @@ function ListFilter({
 }) {
   const [fetchedDept, setFetchedDept] = useState([]);
   const [fetchedDesig, setFetchedDesig] = useState([]);
-  const [dept, setDept] = useState("All Department");
+  const [dept, setDept] = useState("All Departments");
   const [term, setTerm] = useState("");
-  const [role, setRole] = useState("All Designation");
+  const [role, setRole] = useState("All Designations");
   const [stats, setStats] = useState("All Status");
-  const allDept = ["All Department", ...fetchedDept];
-  const allDesig = ["All Designation", ...fetchedDesig];
-  // const allStatus = [
-  //   "All Status",
-  //   ...Object.keys(dashboardData?.data?.stats || {}),
-  // ];
 
   useEffect(() => {
     const fetchDept = async () => {
       try {
         const response = await departments();
-        setFetchedDept(response?.data?.data?.map((dept) => dept.name));
+        setFetchedDept(response?.data?.data);
       } catch (error) {
         console.log(error);
       }
@@ -34,7 +28,7 @@ function ListFilter({
     const fetchDesig = async () => {
       try {
         const response = await designations();
-        setFetchedDesig(response?.data?.data?.map((desig) => desig.title));
+        setFetchedDesig(response?.data?.data);
       } catch (error) {
         console.log(error);
       }
@@ -72,13 +66,14 @@ function ListFilter({
       </div>
       <div className="w-40 ">
         <select
-          value={dept}
+          value={dept.name}
           onChange={(e) => setDept(e.target.value)}
           className="form-control"
         >
-          {allDept.map((dept) => (
-            <option value={dept} key={dept}>
-              {dept}
+          <option>All Departments</option>
+          {fetchedDept.map((dept) => (
+            <option value={dept.name} key={dept.id}>
+              {dept.name}
             </option>
           ))}
         </select>
@@ -89,8 +84,9 @@ function ListFilter({
           onChange={(e) => setRole(e.target.value)}
           className="form-control"
         >
-          {allDesig.map((role) => (
-            <option key={role}> {role} </option>
+          <option>All Designations</option>
+          {fetchedDesig.map((role) => (
+            <option key={role.id}> {role.title} </option>
           ))}
         </select>
       </div>

@@ -1,6 +1,8 @@
 import React from "react";
 
 function EmpBasicInfo() {
+  const bloodGroup = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"];
+  const maritalStatus = ["Single", "Married", "Divorced"];
   return (
     <div className="form-section">
       <div className="form-section-title">
@@ -59,23 +61,18 @@ function EmpBasicInfo() {
           <label>Marital Status</label>
           <select className="form-control">
             <option value="">Select Status...</option>
-            <option>Single</option>
-            <option>Married</option>
-            <option>Divorced</option>
+            {maritalStatus.map((ms) => (
+              <option key={ms}>{ms}</option>
+            ))}
           </select>
         </div>
         <div className="form-group">
           <label>Blood Group</label>
           <select className="form-control">
             <option value="">Select Type...</option>
-            <option>O+</option>
-            <option>O-</option>
-            <option>A+</option>
-            <option>A-</option>
-            <option>B+</option>
-            <option>B-</option>
-            <option>AB+</option>
-            <option>AB-</option>
+            {bloodGroup.map((bg) => (
+              <option key={bg}>{bg}</option>
+            ))}
           </select>
         </div>
       </div>

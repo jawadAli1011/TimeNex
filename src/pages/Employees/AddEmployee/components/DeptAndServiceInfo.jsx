@@ -1,6 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getUnusedId } from "../../../../api/emp_api";
+import CustomDropdown from "../../../../utills/ResuableDropdown";
+import { departments } from "../../../../api/dept_api";
+import { designations } from "../../../../api/desig_api";
 
 function DeptAndServiceInfo() {
+  const [newId, setNewId] = useState([]);
+  const [dept, setDept] = useState([]);
+  const [desig, setDesig] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
+  const [selectedDept, setSelectedDept] = useState(null);
+  const [selectedDesig, setSelectedDesig] = useState(null);
+
+  const fetchUnUsedId = async () => {
+    try {
+      const response = await getUnusedId();
+      setDept(response?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchDept = async () => {
+    try {
+      const response = await departments();
+      setNewId(response?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchDesig = async () => {
+    try {
+      const response = await designations();
+      setDesig(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDept();
+    fetchDesig();
+    fetchUnUsedId();
+    const handleRefresh = () => {
+      fetchUnUsedId();
+    };
+    window.addEventListener("page-refresh", handleRefresh);
+    return () => {
+      window.removeEventListener("page-refresh", handleRefresh);
+    };
+  }, []);
+
   return (
     <div className="form-section">
       <div className="form-section-title">
@@ -9,31 +60,33 @@ function DeptAndServiceInfo() {
       <div className="grid-4">
         <div className="form-group">
           <label>Employee ID</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="EMP-1001"
-            required
+          <CustomDropdown
+            options={newId}
+            value={selectedId}
+            onChange={setSelectedId}
+            placeholder="Suggested IDs"
+            optionbtn="Use"
+            itemName="MissingID"
           />
         </div>
         <div className="form-group">
           <label>Department</label>
-          <select className="form-control" required>
-            <option value="">Select Dept...</option>
-            <option>Engineering</option>
-            <option>Human Resources</option>
-            <option>Sales</option>
-            <option>Marketing</option>
-            <option>Support</option>
-          </select>
+          <CustomDropdown
+            options={dept}
+            value={selectedDept}
+            onChange={setSelectedDept}
+            placeholder="Select Dept..."
+            itemName="name"
+          />
         </div>
         <div className="form-group">
           <label>Designation</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="e.g. Senior Developer"
-            required
+          <CustomDropdown
+            options={desig}
+            value={selectedDesig}
+            onChange={setSelectedDesig}
+            placeholder="Select Designation"
+            itemName="title"
           />
         </div>
         <div className="form-group">

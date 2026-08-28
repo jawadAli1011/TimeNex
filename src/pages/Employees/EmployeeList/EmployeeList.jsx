@@ -10,27 +10,13 @@ import PageLoader from "../../../components/Loading";
 import { getEmpData } from "../../../api/emp_api";
 
 function EmployeeList() {
-  // const { dashboardData, error, fetchDashboard, loading } = useDashboard();
   const [empData, setEmpData] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [deptFilter, setDeptFilter] = useState("All Department");
-  const [desigFilter, setDesigFilter] = useState("All Designation");
+  const [deptFilter, setDeptFilter] = useState("All Departments");
+  const [desigFilter, setDesigFilter] = useState("All Designations");
   const [statusFilter, setStatusFilter] = useState("All Status");
-
-  // const [filters, setFilters] = useState({
-  //   department_id: "",
-  //   designation_id: "",
-  //   name: "",
-  //   id: "",
-  //   cnic: "",
-  //   father_name: "",
-  //   file_number: "",
-  //   gender: "",
-  // });
-
-  // console.log(filters);
 
   useEffect(() => {
     const fetchEmployee = async () => {
@@ -57,11 +43,6 @@ function EmployeeList() {
 
   const allRecords = Object.values(empData?.data || {}).flat();
 
-  // const uniqueEmployees = [
-  //   ...new Map(allRecords.map((emp) => [emp.id, emp])).values(),
-  // ];
-  // console.log(uniqueEmployees);
-
   const searchEmployee = (arr, term, dept, desig, stats) => {
     let result = arr;
 
@@ -72,10 +53,10 @@ function EmployeeList() {
           String(emp.id) === term || emp.name.toLowerCase().includes(lowerTerm),
       );
     }
-    if (dept !== "All Department") {
+    if (dept !== "All Departments") {
       result = result.filter((emp) => emp.departments.name === dept);
     }
-    if (desig !== "All Designation") {
+    if (desig !== "All Designations") {
       result = result.filter((emp) => emp.designations?.title === desig);
     }
     if (stats !== "All Status") {

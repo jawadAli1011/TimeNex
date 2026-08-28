@@ -582,6 +582,9 @@ function TimeCategoryForm({ onSubmit }) {
                         },
                       },
                     },
+                    field: {
+                      readOnly: false,
+                    },
                   }}
                 />
 
