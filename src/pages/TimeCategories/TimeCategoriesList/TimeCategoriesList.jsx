@@ -13,22 +13,22 @@ import {
   IconButton,
   Tooltip,
   CircularProgress,
+  Button,
 } from "@mui/material";
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
-import { AuthContext } from "../../../context/AuthContext";
 import { getTimeCategories } from "../../../api/timeCategory_api";
 import TimeCategoryActions from "../UpdateAndDelete/DeleteTC";
 import UpdateTimeCategory from "../UpdateAndDelete/UpdateTC";
+import AddIcon from "@mui/icons-material/Add";
 
 const PRIMARY_COLOR = "#92700a";
 
 const TimeCategoryList = ({ onEdit, onDelete }) => {
   const [timeCategories, setTimeCategories] = useState([]);
-  const { companyName } = useContext(AuthContext);
+  const companyName = localStorage.getItem("currentUser");
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState(null);
 
   // =====================================================
@@ -140,25 +140,49 @@ const TimeCategoryList = ({ onEdit, onDelete }) => {
           p: 2,
           display: "flex",
           alignItems: "center",
+          justifyContent: "space-between",
           gap: 1,
           borderBottom: "1px solid #ddd",
         }}
       >
-        <AccessTimeIcon
+        <Box
           sx={{
-            color: PRIMARY_COLOR,
-          }}
-        />
-
-        <Typography
-          variant="h6"
-          fontWeight={600}
-          sx={{
-            color: PRIMARY_COLOR,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
-          Time Categories
-        </Typography>
+          <AccessTimeIcon
+            sx={{
+              color: PRIMARY_COLOR,
+            }}
+          />
+
+          <Typography
+            variant="h6"
+            fontWeight={600}
+            sx={{
+              color: PRIMARY_COLOR,
+            }}
+          >
+            Time Categories
+          </Typography>
+        </Box>
+
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
+          onClick={() => navigate(route)}
+          sx={{
+            backgroundColor: "#92700a",
+            whiteSpace: "nowrap",
+            "&:hover": {
+              backgroundColor: "#755b08",
+            },
+          }}
+        >
+          Add TimeCategory
+        </Button>
       </Box>
 
       {/* ================================================= */}

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-function RegionAndDemographics() {
+function RegionAndDemographics({ handleChange, formData }) {
   return (
     <div className="form-section">
       <div className="form-section-title">
@@ -38,6 +38,9 @@ function RegionAndDemographics() {
           <label>Residential Address</label>
           <input
             type="text"
+            name="address"
+            value={formData.address || ""}
+            onChange={handleChange}
             className="form-control"
             placeholder="Full street address"
           />
@@ -52,7 +55,36 @@ function RegionAndDemographics() {
         </div>
         <div className="form-group">
           <label>National ID / SSN</label>
-          <input type="text" className="form-control" placeholder="ID Number" />
+          <input
+            type="text"
+            name="cnic"
+            value={formData.cnic || ""}
+            onChange={handleChange}
+            className="form-control"
+            placeholder="ID Number"
+          />
+        </div>
+        <div className="form-group">
+          <label>National ID, Date Of Issue</label>
+          <input
+            type="date"
+            name="cnic_issue_date"
+            value={formData.cnic_issue_date || ""}
+            onChange={handleChange}
+            className="form-control"
+            placeholder="Date Of Issue"
+          />
+        </div>
+        <div className="form-group">
+          <label>National ID, Date Of Expiry</label>
+          <input
+            type="date"
+            name="cnic_expiry_date"
+            value={formData.cnic_expiry_date || ""}
+            onChange={handleChange}
+            className="form-control"
+            placeholder="Date Of Expiry"
+          />
         </div>
       </div>
     </div>

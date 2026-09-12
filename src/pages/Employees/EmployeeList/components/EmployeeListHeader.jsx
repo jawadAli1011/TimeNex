@@ -12,7 +12,7 @@ function EmployeeListHeader() {
         <button className="btn btn-secondary">
           <span>📥</span> Export CSV
         </button>
-        <Link className="btn btn-primar " to="/employees/add">
+        <Link className="btn btn-primar " to="/empreg/step1">
           + Add Employee
         </Link>
       </div>

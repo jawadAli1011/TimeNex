@@ -83,7 +83,7 @@ function TimeCategoryForm({ onSubmit }) {
     title: "",
     graceTime: "",
     nightShift: false,
-    hours: "9",
+    hours: "",
     timeCatType: 1,
     abbr: "",
     schedule: defaultSchedule,
@@ -179,7 +179,7 @@ function TimeCategoryForm({ onSubmit }) {
     e.preventDefault();
 
     const calculateHours = () => {
-      const enabledDay = Object.values(formData.schedule).find(
+      const enabledDay = Object.values(formData?.schedule).find(
         (day) => day.enabled && day.startTime && day.endTime,
       );
 
@@ -210,28 +210,29 @@ function TimeCategoryForm({ onSubmit }) {
     };
 
     const payload = {
-      title: formData.title,
+      title: formData?.title,
 
-      grace_time: formData.graceTime,
+      grace_time: formData?.graceTime,
 
-      is_night_shift: formData.nightShift ? 1 : 0,
+      is_night_shift: formData?.nightShift ? 1 : 0,
 
-      time_cat_type: formData.timeCatType,
+      time_cat_type: formData?.timeCatType,
 
       // Monday's first time
-      time_in: formData.schedule.Monday.enabled
-        ? formData.schedule.Monday.startTime
+      time_in: formData?.schedule.Monday.enabled
+        ? formData?.schedule.Monday.startTime
         : null,
 
       // Monday's last time
-      time_out: formData.schedule.Monday.enabled
-        ? formData.schedule.Monday.endTime
+      time_out: formData?.schedule.Monday.enabled
+        ? formData?.schedule.Monday.endTime
         : null,
 
-      hours: calculateHours(),
+      hours: "",
+      // hours: calculateHours(),
 
-      abbr: formData.title
-        ? formData.title
+      abbr: formData?.title
+        ? formData?.title
             .split(" ")
             .map((word) => word[0])
             .join("")
@@ -240,12 +241,12 @@ function TimeCategoryForm({ onSubmit }) {
     };
 
     // Add weekly schedule fields
-    Object.entries(formData.schedule).forEach(([day, dayData]) => {
+    Object.entries(formData?.schedule).forEach(([day, dayData]) => {
       const dayName = day.toLowerCase();
 
-      payload[`tc_${dayName}_in`] = dayData.enabled ? dayData.startTime : null;
+      payload[`tc_${dayName}_in`] = dayData.enabled ? dayData?.startTime : null;
 
-      payload[`tc_${dayName}_out`] = dayData.enabled ? dayData.endTime : null;
+      payload[`tc_${dayName}_out`] = dayData.enabled ? dayData?.endTime : null;
     });
 
     try {
@@ -353,7 +354,7 @@ function TimeCategoryForm({ onSubmit }) {
             <TextField
               label="Title"
               name="title"
-              value={formData.title}
+              value={formData?.title}
               onChange={handleChange}
               required
               fullWidth
@@ -367,8 +368,8 @@ function TimeCategoryForm({ onSubmit }) {
             <TimePicker
               label="Grace Time"
               value={
-                formData.graceTime
-                  ? dayjs(`2000-01-01T${formData.graceTime}`)
+                formData?.graceTime
+                  ? dayjs(`2000-01-01T${formData?.graceTime}`)
                   : null
               }
               onChange={(newValue) => {
@@ -440,7 +441,7 @@ function TimeCategoryForm({ onSubmit }) {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={formData.nightShift}
+                    checked={formData?.nightShift}
                     onChange={handleNightShift}
                     sx={{
                       // Checked color
@@ -476,7 +477,7 @@ function TimeCategoryForm({ onSubmit }) {
           </Typography>
 
           {days.map((day) => {
-            const dayData = formData.schedule[day];
+            const dayData = formData?.schedule[day];
 
             return (
               <Box

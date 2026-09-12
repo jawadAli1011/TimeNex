@@ -6,7 +6,7 @@ function CustomDropdown({
   optionbtn = "",
   value,
   onChange,
-  placeholder = "Select ID",
+  placeholder,
   itemName,
 }) {
   const [open, setOpen] = useState(false);
@@ -27,11 +27,8 @@ function CustomDropdown({
     };
   }, []);
 
-  const selectedOption = options.find((item) => item[itemName] === value);
-
-  const handleSelect = (option) => {
-    onChange(option[itemName]);
-
+  const handleSelect = (item) => {
+    onChange(item);
     setOpen(false);
   };
 
@@ -43,8 +40,8 @@ function CustomDropdown({
         onClick={() => setOpen((prev) => !prev)}
         className="form-control flex w-full items-center justify-between rounded-md  bg-white px-4 py-2.5 text-left text-sm  outline-none hover:border-gray-500"
       >
-        <span className={selectedOption ? "text-gray-800" : "text-gray-400"}>
-          {selectedOption ? selectedOption[itemName] : placeholder}
+        <span className={value ? "text-gray-800" : "text-gray-400"}>
+          {value ? value : placeholder}
         </span>
 
         <ChevronDown
@@ -66,7 +63,7 @@ function CustomDropdown({
             options.map((item) => (
               <button
                 type="button"
-                key={item[itemName]}
+                key={item.id}
                 onClick={() => handleSelect(item)}
                 className="flex w-full items-center justify-between  hover:bg-gray-100"
                 style={{ padding: "8px" }}

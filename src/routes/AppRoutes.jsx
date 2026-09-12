@@ -6,7 +6,7 @@ import Login from "../pages/Login/Login";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import EmployeeList from "../pages/Employees/EmployeeList/EmployeeList";
-import AddEmployee from "../pages/Employees/AddEmployee/AddEmployee";
+// import EmployeeForm from "../pages/Employees/AddEmployee/AddEmployee";
 // import EmployeeDetails from "../pages/Employees/EmployeeDetails";
 // import Attendance from "../pages/Attendance/Attendance";
 // import AttendanceHistory from "../pages/Attendance/components/AttendanceHistory";
@@ -61,6 +61,7 @@ import NewDeduction from "../pages/Deductions/NewDeduction/NewDeduction";
 import LoansList from "../pages/Loans/Loans/LoansList";
 import Advances from "../pages/Advances/AdvancesList/AdvancesList";
 import ModulesList from "../pages/AcademicModules/ModulesList/ModulesList";
+import EmployeeForm from "../pages/Employees/EmployeeForm/EmployeeForm";
 
 function AppRoutes() {
   return (
@@ -156,7 +157,8 @@ function AppRoutes() {
 
         <Route>
           <Route path="/users" element={<EmployeeList />} />
-          <Route path="/empreg/step1" element={<AddEmployee />} />
+          <Route path="/empreg/step1" element={<EmployeeForm />} />
+          <Route path="/employees/edit/:id" element={<EmployeeForm />} />
           <Route path="/inactives" element={<InactiveEmployee />} />
           <Route path="/marks_attendance" element={<MarkAttendance />} />
         </Route>

@@ -6,18 +6,21 @@ export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const navigate = useNavigate();
-  const [companyName, setCompanyName] = useState("");
+  const [companyName, setCompanyName] = useState(
+    localStorage.getItem("currentUser"),
+  );
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState("");
   const [menu, setMenu] = useState(() => {
     const savedMenu = localStorage.getItem("menu");
     return savedMenu ? JSON.parse(savedMenu) : [];
   });
 
-  const loginUser = (token, menus) => {
+  const loginUser = (token, menus, companyName) => {
     localStorage.setItem("token", token);
     localStorage.setItem("menu", JSON.stringify(menus));
     setToken(token);
+    localStorage.setItem("currentUser", companyName);
   };
 
   const fetchAuth = async (form) => {
@@ -25,11 +28,12 @@ export default function AuthProvider({ children }) {
     try {
       const response = await login(form);
       const token = response.data.token;
-      setCompanyName(response.data.currentUser.departments.name);
-
+      const currentUser = response.data.currentUser.name;
       const menus = response.data.assigned_menus;
-      loginUser(token, menus);
+
+      loginUser(token, menus, currentUser);
       setMenu(menus);
+      setCompanyName(currentUser);
 
       navigate("/");
     } catch (error) {
@@ -42,6 +46,9 @@ export default function AuthProvider({ children }) {
   const logoutUser = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("menu");
+    localStorage.removeItem("currentUser");
+    setMenu([]);
+    setCompanyName(null);
     setToken(null);
     window.location.href = "/login";
   };

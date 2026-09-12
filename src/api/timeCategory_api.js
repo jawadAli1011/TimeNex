@@ -15,3 +15,9 @@ export const deleteTimeCategory = (id) => {
 export const updateTimeCategory = (id, payload) => {
   return api.put(`/time-categories/${id}`, payload);
 };
+
+/////////////////////////////////// Leave Types api ///////////////
+
+export const getLeavesTypes = () => {
+  return api.get("/leave-types");
+}

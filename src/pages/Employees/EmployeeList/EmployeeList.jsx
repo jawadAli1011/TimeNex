@@ -18,19 +18,18 @@ function EmployeeList() {
   const [desigFilter, setDesigFilter] = useState("All Designations");
   const [statusFilter, setStatusFilter] = useState("All Status");
 
+  const fetchEmployee = async () => {
+    setLoading(true);
+    try {
+      const response = await getEmpData();
+      setEmpData(response.data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchEmployee = async () => {
-      setLoading(true);
-      try {
-        const response = await getEmpData();
-        setEmpData(response.data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchEmployee();
     const handleRefresh = () => {
       fetchEmployee();
@@ -91,7 +90,11 @@ function EmployeeList() {
 
         {/* <!-- Table --> */}
 
-        <EmployeesTable filteredEmp={filteredEmp} loading={loading} />
+        <EmployeesTable
+          filteredEmp={filteredEmp}
+          loading={loading}
+          fetchEmployee={fetchEmployee}
+        />
 
         {/* <!-- Pagination --> */}
 
