@@ -17,6 +17,8 @@ function EmployeeList() {
   const [deptFilter, setDeptFilter] = useState("All Departments");
   const [desigFilter, setDesigFilter] = useState("All Designations");
   const [statusFilter, setStatusFilter] = useState("All Status");
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(7);
 
   const fetchEmployee = async () => {
     setLoading(true);
@@ -94,11 +96,19 @@ function EmployeeList() {
           filteredEmp={filteredEmp}
           loading={loading}
           fetchEmployee={fetchEmployee}
+          start={start}
+          end={end}
         />
 
         {/* <!-- Pagination --> */}
 
-        <Pagination />
+        <Pagination
+          filteredEmp={filteredEmp}
+          start={start}
+          setStart={setStart}
+          end={end}
+          setEnd={setEnd}
+        />
       </div>
     </>
   );

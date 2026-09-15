@@ -131,6 +131,7 @@
         .activeTab {
             background: rgba(200, 169, 96, 0.15);
             color: #c8a960;
+            border: 1px solid var(--border);
             font-weight: 600
         }
 

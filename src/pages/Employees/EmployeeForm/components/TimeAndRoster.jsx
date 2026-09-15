@@ -157,7 +157,7 @@ function TimeAndRoster({ formData, handleChange, setFormData }) {
             className="form-control"
             name="leave_type"
             required
-            value={"Casual Leave" || ""}
+            // value={"Casual Leave" || ""}
             // onChange={handleChange}
           >
             <option value="Casual Leave">Casual Leave</option>
@@ -169,6 +169,7 @@ function TimeAndRoster({ formData, handleChange, setFormData }) {
           </label>
           {formData.leaves.map((leave, index) => (
             <input
+              key={index}
               type="number"
               value={leave.total_leaves || ""}
               className="form-control"

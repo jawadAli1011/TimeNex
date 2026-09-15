@@ -21,7 +21,7 @@ const tabelHeader = [
   "Actions",
 ];
 
-function EmployeesTable({ filteredEmp, loading, fetchEmployee }) {
+function EmployeesTable({ filteredEmp, loading, fetchEmployee, start, end }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
@@ -66,7 +66,7 @@ function EmployeesTable({ filteredEmp, loading, fetchEmployee }) {
             </tr>
           </thead>
           <tbody>
-            {filteredEmp.map((td) => (
+            {filteredEmp.slice(start, end).map((td) => (
               <tr key={td.id}>
                 <td>
                   <div className="flex items-center gap-3">
@@ -94,36 +94,26 @@ function EmployeesTable({ filteredEmp, loading, fetchEmployee }) {
                   {td.departments?.name}
                 </td>
                 <td> {td.designations?.title} </td>
-                {/* <td>
-                <span
-                  className="badge b-green"
-                  style={{ color: GetColor(td.status) }}
-                >
-                  <span
-                    className="dot"
-                    style={{ backgroundColor: GetColor(td.status) }}
-                  ></span>
-                  {td.status}
-                </span>
-              </td> */}
-                <td className="text-right flex">
-                  <button className="btn-icon" title="View Profile">
-                    👁️
-                  </button>
-                  <button
-                    className="btn-icon"
-                    title="Edit Employee"
-                    onClick={() => navigate(`/employees/edit/${td.id}`)}
-                  >
-                    ✏️
-                  </button>
-                  <button
-                    onClick={() => handleOpen(td.id, td.name)}
-                    title="Delete"
-                    className="btn-icon text-(--red)"
-                  >
-                    🗑️
-                  </button>
+                <td className="text-right">
+                  <div className="flex">
+                    <button className="btn-icon" title="View Profile">
+                      👁️
+                    </button>
+                    <button
+                      className="btn-icon"
+                      title="Edit Employee"
+                      onClick={() => navigate(`/employees/edit/${td.id}`)}
+                    >
+                      ✏️
+                    </button>
+                    <button
+                      onClick={() => handleOpen(td.id, td.name)}
+                      title="Delete"
+                      className="btn-icon text-(--red)"
+                    >
+                      🗑️
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

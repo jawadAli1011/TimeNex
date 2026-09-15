@@ -5,7 +5,7 @@ import { designations } from "../../../api/dropdowns_api";
 function DesignationsList() {
   const [desig, setDesig] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  console.log(desig);
   const fetchDesig = async () => {
     setLoading(true);
     try {

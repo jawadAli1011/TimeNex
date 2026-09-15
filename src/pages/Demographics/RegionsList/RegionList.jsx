@@ -5,6 +5,7 @@ import { getRegions } from "../../../api/dropdowns_api";
 function RegionList() {
   const [region, setRegion] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const fetchRegions = async () => {
     setLoading(true);
     try {
@@ -21,7 +22,7 @@ function RegionList() {
   }, []);
   return (
     <ReusableList
-      listName="Roles"
+      listName="Regions"
       data={region}
       loading={loading}
       newBtn="Add Region"

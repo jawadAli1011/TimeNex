@@ -64,7 +64,6 @@ function EmployeeForm() {
       },
     ],
   });
-  console.log(formData);
 
   // reporting_to
   // term_id

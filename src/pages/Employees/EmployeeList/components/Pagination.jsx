@@ -1,32 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Pagination() {
+function Pagination({ filteredEmp, start, setStart, end, setEnd }) {
+  const [activeTab, setActiveTab] = useState(1);
+  const handleNext = () => {
+    setStart(start + 7);
+    setEnd(end + 7);
+    setActiveTab(activeTab + 1);
+  };
+
+  const handlePrevious = () => {
+    setStart(start - 7);
+    setEnd(end - 7);
+    setActiveTab(activeTab - 1);
+  };
   return (
-    <div className="flex justify-between items-center mt-5 text-xs text-gray-500 border-t border-gray-300 pt-4">
-      <div>Showing 1 to 4 of 45 entries</div>
+    <div
+      className="flex justify-between items-center mt-5 text-xs text-gray-500 border-t border-gray-300 "
+      style={{ paddingTop: "10px" }}
+    >
+      <div>
+        Showing {start + 1} to {Math.min(end, filteredEmp.length)} of{" "}
+        {filteredEmp.length} entries
+      </div>
       <div className="flex gap-1.5">
-        <button className="btn btn-secondary" className="py-1 px-2.5" disabled>
+        <button
+          className="btn btn-secondary py-1 px-2.5"
+          onClick={handlePrevious}
+          disabled={start === 0}
+        >
           Previous
         </button>
+        <button className="btn activeTab">{activeTab} </button>
+
         <button
-          className="btn btn-secondary"
-          className="px-2.5 py-1 bg-amber-100/20 text-amber-700 border border-amber-300"
+          className="btn btn-secondary "
+          onClick={handleNext}
+          disabled={end >= filteredEmp.length}
         >
-          1
-        </button>
-        <button className="btn btn-secondary" className="py-1 px-2.5">
-          2
-        </button>
-        <button className="btn btn-secondary" className="py-1 px-2.5">
-          3
-        </button>
-        <button className="btn btn-secondary" className="py-1 px-2.5">
-          ...
-        </button>
-        <button className="btn btn-secondary" className="py-1 px-2.5">
-          10
-        </button>
-        <button className="btn btn-secondary" className="py-1 px-2.5">
           Next
         </button>
       </div>
