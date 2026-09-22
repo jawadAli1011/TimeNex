@@ -5,6 +5,7 @@ function CustomDropdown({
   options = [],
   optionbtn = "",
   value,
+  style = {},
   onChange,
   placeholder,
   itemName,
@@ -39,6 +40,7 @@ function CustomDropdown({
         type="button"
         onClick={() => setOpen((prev) => !prev)}
         className="form-control flex w-full items-center justify-between rounded-md  bg-white px-4 py-2.5 text-left text-sm  outline-none hover:border-gray-500"
+        style={style}
       >
         <span className={value ? "text-gray-800" : "text-gray-400"}>
           {value ? value : placeholder}

@@ -12,7 +12,7 @@ import EmployeeList from "../pages/Employees/EmployeeList/EmployeeList";
 // import AttendanceHistory from "../pages/Attendance/components/AttendanceHistory";
 import Location from "../pages/Location/Location";
 import Departments from "../pages/Departments/DepartmentsList/DepartmentsList";
-import Reports from "../pages/Reports/Reports";
+
 import Settings from "../pages/Settings/Settings";
 import NotFound from "../pages/NotFound/NotFound";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
@@ -40,7 +40,7 @@ import LeaveList from "../pages/Leaves/LeaveList/LeaveList";
 import NewLeave from "../pages/Leaves/NewLeave/NewLeave";
 // import AttendanceStatusReports from "../pages/Reports/AttendanceStatusReports";
 import IndividualReports from "../pages/Reports/IndividualReports";
-import MonthlyDetailedAttendance from "../pages/Reports/MonthlyDetailedAttendance";
+import MonthlyDetailedAttendance from "../pages/Reports/MonthlyDetailsAttendanceReport/MonthlyDetailedAttendance";
 import LeavesReport from "../pages/Reports/LeavesReport";
 import IndividualsPayroll from "../pages/Reports/IndividualsPayroll";
 import MonthlyPayroll from "../pages/Reports/MonthlyPayroll";
@@ -140,7 +140,6 @@ function AppRoutes() {
         </Route>
 
         <Route>
-          <Route path="/report" element={<Reports />} />
           <Route path="/individual_report" element={<IndividualReports />} />
           <Route
             path="/monthly_details_attendance"

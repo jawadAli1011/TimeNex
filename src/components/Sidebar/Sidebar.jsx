@@ -5,7 +5,6 @@ import { AuthContext } from "../../context/AuthContext";
 import Footer from "../Footer/Footer";
 import { ChevronLeft, ChevronDown } from "lucide-react";
 import GitIcon from "../../utills/GitIcon";
-import { useDashboard } from "../../context/DashboardContext";
 import Tooltip from "@mui/material/Tooltip";
 import RefreshIcon from "@mui/icons-material/Refresh";
 

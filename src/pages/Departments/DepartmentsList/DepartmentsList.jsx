@@ -5,7 +5,7 @@ import { departments } from "../../../api/dropdowns_api";
 function DepartmentsList() {
   const [dept, setDept] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  console.log(dept);
   useEffect(() => {
     const fetchDept = async () => {
       setLoading(true);

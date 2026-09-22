@@ -4,7 +4,6 @@ import EmployeeListHeader from "./components/EmployeeListHeader";
 import ListFilter from "./components/ListFilter";
 import EmployeesTable from "./components/EmployeesTable";
 import Pagination from "./components/Pagination";
-import { useDashboard } from "../../../context/DashboardContext";
 import { useEffect } from "react";
 import PageLoader from "../../../components/Loading";
 import { getEmpData } from "../../../api/emp_api";
