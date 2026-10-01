@@ -124,11 +124,11 @@ const ReusableList = ({
           }}
         >
           {/* SEARCH */}
-
+          {/* 
           <TextField
             size="small"
             placeholder="Search..."
-            // value={search}
+            value={search}
             onChange={handleSearch}
             sx={{
               width: {
@@ -163,7 +163,7 @@ const ReusableList = ({
                 ),
               },
             }}
-          />
+          /> */}
 
           {/* ADD BUTTON */}
 
@@ -336,7 +336,11 @@ const ReusableList = ({
                         ? item.leave_type === 1
                           ? "Fixed"
                           : "Variable"
-                        : item.description || item.region_desc || "--"}
+                        : item.description ||
+                          item.region_desc ||
+                          item.branch_desc ||
+                          item.zone_desc ||
+                          "--"}
                     </Typography>
                   </TableCell>
 

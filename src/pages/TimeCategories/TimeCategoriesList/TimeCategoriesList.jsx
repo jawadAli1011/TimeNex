@@ -22,6 +22,7 @@ import { getTimeCategories } from "../../../api/timeCategory_api";
 import TimeCategoryActions from "../UpdateAndDelete/DeleteTC";
 import UpdateTimeCategory from "../UpdateAndDelete/UpdateTC";
 import AddIcon from "@mui/icons-material/Add";
+import { useNavigate } from "react-router-dom";
 
 const PRIMARY_COLOR = "#92700a";
 
@@ -30,6 +31,7 @@ const TimeCategoryList = ({ onEdit, onDelete }) => {
   const companyName = localStorage.getItem("currentUser");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   // =====================================================
   // FETCH TIME CATEGORIES
@@ -172,7 +174,7 @@ const TimeCategoryList = ({ onEdit, onDelete }) => {
         <Button
           variant="contained"
           startIcon={<AddIcon />}
-          onClick={() => navigate(route)}
+          onClick={() => navigate("/timecategories/create")}
           sx={{
             backgroundColor: "#92700a",
             whiteSpace: "nowrap",

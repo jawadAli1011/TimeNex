@@ -5,6 +5,7 @@ import ReusableList from "../../../utills/resuableList";
 function ZonesList() {
   const [zones, setZones] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const fetchZones = async () => {
     try {
       setLoading(true);

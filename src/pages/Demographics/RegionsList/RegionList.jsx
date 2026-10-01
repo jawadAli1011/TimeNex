@@ -6,6 +6,8 @@ function RegionList() {
   const [region, setRegion] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  console.log(region);
+
   const fetchRegions = async () => {
     setLoading(true);
     try {
@@ -20,6 +22,7 @@ function RegionList() {
   useEffect(() => {
     fetchRegions();
   }, []);
+
   return (
     <ReusableList
       listName="Regions"

@@ -252,10 +252,10 @@ function TimeCategoryForm({ onSubmit }) {
     try {
       const action = e.nativeEvent.submitter?.value;
       setLoading(true);
-      const response = await postTimeCategory(payload);
+      await postTimeCategory(payload);
       setFormData(initialFormData);
       if (action === "save") {
-        navigate("/timecategories");
+        // navigate("/timecategories");
       }
     } catch (error) {
       console.log(error);
@@ -684,7 +684,7 @@ function TimeCategoryForm({ onSubmit }) {
               value="save"
               variant="contained"
               startIcon={<SaveIcon />}
-              onClick={() => navigate("/timecategories")}
+              // onClick={() => navigate("/timecategories")}
               sx={{
                 backgroundColor: "#92700a",
 

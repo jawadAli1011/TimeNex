@@ -10,7 +10,6 @@ import { getEmpData } from "../../../api/emp_api";
 
 function EmployeeList() {
   const [empData, setEmpData] = useState(null);
-  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [deptFilter, setDeptFilter] = useState("All Departments");
@@ -25,7 +24,7 @@ function EmployeeList() {
       const response = await getEmpData();
       setEmpData(response.data);
     } catch (err) {
-      setError(err);
+      console.log(err);
     } finally {
       setLoading(false);
     }

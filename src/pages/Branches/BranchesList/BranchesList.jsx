@@ -5,6 +5,7 @@ import ReusableList from "../../../utills/resuableList";
 function BranchesList() {
   const [branches, setBranches] = useState([]);
   const [loading, setLoading] = useState(false);
+  console.log(branches);
   const fetchBranches = async () => {
     setLoading(true);
     try {
