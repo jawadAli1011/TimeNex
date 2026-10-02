@@ -29,6 +29,8 @@ function UpdateTimeCategory({ category, fetchTimeCategory }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  console.log(category);
+
   const [formData, setFormData] = useState({
     title: "",
     graceTime: "",

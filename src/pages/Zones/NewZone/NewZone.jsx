@@ -26,9 +26,9 @@ export default function CreateZone() {
       dropdownId="region_id"
       options={region}
       inputLabel="Zone Name"
-      inputName="Zone_name"
+      inputName="zone_name"
       descLabel="Zone Description"
-      descName="Zone_desc"
+      descName="zone_desc"
       postApi={createZones}
       route="/zones"
     />

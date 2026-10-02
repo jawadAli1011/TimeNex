@@ -9,3 +9,7 @@ export const getBranches = () => {
 export const createBranches = (payload) => {   
     return api.post("/branches",payload)
 }
+
+export const deleteBranch = (id) => {
+    return api.delete(`/branches/${id}`)
+}

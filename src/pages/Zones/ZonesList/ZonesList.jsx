@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getZones } from "../../../api/zone_api";
+import { deleteZone, getZones } from "../../../api/zone_api";
 import ReusableList from "../../../utills/resuableList";
 
 function ZonesList() {
   const [zones, setZones] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const fetchZones = async () => {
     try {
       setLoading(true);
@@ -34,6 +33,11 @@ function ZonesList() {
       loading={loading}
       newBtn="Add Zone"
       route="/zones/create"
+      itemId="zone_id"
+      itemName="zone_name"
+      dialogTitle="Delete Zone"
+      deleteApi={deleteZone}
+      refreshApi={fetchZones}
     />
   );
 }

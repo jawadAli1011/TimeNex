@@ -90,11 +90,12 @@ export default function ReusableForm({
       const payload = {
         [inputName]: formData[inputName],
         [descName]: formData[descName],
+        // [dropdownName]: Number(formData[dropdownId]),
         [dropdownName === "region_name" ? dropdownName : dropdownId]: Number(
           formData[dropdownId],
         ),
-        address_line_1: formData.address_line_1,
-        address_line_2: formData.address_line_2,
+        address1: formData.address_line_1,
+        address2: formData.address_line_2,
       };
       console.log(payload);
       await postApi(payload);
@@ -105,7 +106,7 @@ export default function ReusableForm({
         navigate(route);
       }
 
-      alert("Zone created successfully");
+      alert(` ${formData[inputName]} created successfully`);
     } catch (error) {
       console.error("Create zone error:", error);
 

@@ -23,6 +23,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
+import DeleteAlert from "./deleteAlert";
 
 const PRIMARY_COLOR = "#92700a";
 
@@ -32,9 +33,12 @@ const ReusableList = ({
   newBtn,
   route,
   loading = false,
-  onAdd,
   onEdit,
-  onDelete,
+  itemId,
+  itemName,
+  dialogTitle,
+  deleteApi,
+  refreshApi,
 }) => {
   // const [search, setSearch] = useState("");
   const navigate = useNavigate();
@@ -368,11 +372,18 @@ const ReusableList = ({
                     </Tooltip>
 
                     {/* DELETE */}
+                    <DeleteAlert
+                      itemId={item[itemId]}
+                      itemName={item[itemName]}
+                      dialogTitle={dialogTitle}
+                      deleteApi={deleteApi}
+                      refreshApi={refreshApi}
+                    />
 
-                    <Tooltip title="Delete">
+                    {/* <Tooltip title="Delete">
                       <IconButton
                         size="small"
-                        onClick={() => onDelete?.(item)}
+                        onClick={ <DeleteAlert />}
                         sx={{
                           color: "#d32f2f",
 
@@ -383,7 +394,7 @@ const ReusableList = ({
                       >
                         <DeleteIcon fontSize="small" />
                       </IconButton>
-                    </Tooltip>
+                    </Tooltip> */}
                   </TableCell>
                 </TableRow>
               ))

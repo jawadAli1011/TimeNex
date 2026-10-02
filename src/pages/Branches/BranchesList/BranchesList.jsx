@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getBranches } from "../../../api/branches_api";
+import { deleteBranch, getBranches } from "../../../api/branches_api";
 import ReusableList from "../../../utills/resuableList";
 
 function BranchesList() {
@@ -28,6 +28,11 @@ function BranchesList() {
       loading={loading}
       newBtn="Add Branch"
       route="/branchs/create"
+      itemId="branch_id"
+      itemName="branch_name"
+      dialogTitle="Delete Branch"
+      deleteApi={deleteBranch}
+      refreshApi={fetchBranches}
     />
   );
 }
