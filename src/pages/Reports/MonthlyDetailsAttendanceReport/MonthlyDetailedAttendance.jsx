@@ -17,8 +17,9 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 import { getMonthlyDetailReports } from "../../../api/reports_api";
-import { departments } from "../../../api/dropdowns_api";
+// import { departments } from "../../../api/dropdowns_api";
 import MonthlyReportTable from "./MonthlyReportTable";
+import { departments } from "../../../api/departments_api";
 
 const BASE_COLOR = "#92700a";
 

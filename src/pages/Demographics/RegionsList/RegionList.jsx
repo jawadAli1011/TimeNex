@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ReusableList from "../../../utills/resuableList";
-import { getRegions } from "../../../api/dropdowns_api";
+import { deleteRegion, getRegions } from "../../../api/regions_api";
 
 function RegionList() {
   const [region, setRegion] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  console.log(region);
 
   const fetchRegions = async () => {
     setLoading(true);
@@ -30,6 +28,12 @@ function RegionList() {
       loading={loading}
       newBtn="Add Region"
       route="/regions/create"
+      itemId="region_id"
+      itemName="region_name"
+      dialogTitle="Delete Region"
+      deleteApi={deleteRegion}
+      refreshApi={fetchRegions}
+      editRoute="/regions/"
     />
   );
 }

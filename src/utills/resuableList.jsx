@@ -1,5 +1,3 @@
-import React, { useMemo, useState } from "react";
-
 import {
   Box,
   Paper,
@@ -33,12 +31,12 @@ const ReusableList = ({
   newBtn,
   route,
   loading = false,
-  onEdit,
   itemId,
   itemName,
   dialogTitle,
   deleteApi,
   refreshApi,
+  editRoute,
 }) => {
   // const [search, setSearch] = useState("");
   const navigate = useNavigate();
@@ -356,7 +354,7 @@ const ReusableList = ({
                     <Tooltip title="Update">
                       <IconButton
                         size="small"
-                        onClick={() => onEdit?.(item)}
+                        onClick={() => navigate(`${editRoute}${item[itemId]}`)}
                         sx={{
                           color: PRIMARY_COLOR,
 
@@ -379,22 +377,6 @@ const ReusableList = ({
                       deleteApi={deleteApi}
                       refreshApi={refreshApi}
                     />
-
-                    {/* <Tooltip title="Delete">
-                      <IconButton
-                        size="small"
-                        onClick={ <DeleteAlert />}
-                        sx={{
-                          color: "#d32f2f",
-
-                          "&:hover": {
-                            backgroundColor: "rgba(211, 47, 47, 0.10)",
-                          },
-                        }}
-                      >
-                        <DeleteIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip> */}
                   </TableCell>
                 </TableRow>
               ))

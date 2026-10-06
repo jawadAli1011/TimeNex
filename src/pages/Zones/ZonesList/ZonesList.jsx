@@ -38,6 +38,7 @@ function ZonesList() {
       dialogTitle="Delete Zone"
       deleteApi={deleteZone}
       refreshApi={fetchZones}
+      editRoute="/zones/"
     />
   );
 }

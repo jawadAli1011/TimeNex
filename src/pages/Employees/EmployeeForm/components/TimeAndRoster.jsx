@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getTimeCategories } from "../../../../api/timeCategory_api";
-import { getRegions } from "../../../../api/dropdowns_api";
 import { getZones } from "../../../../api/zone_api";
 import { getBranches } from "../../../../api/branches_api";
+import { getRegions } from "../../../../api/regions_api";
 
 function TimeAndRoster({ formData, handleChange, setFormData }) {
   const [timeCategory, setTimeCategory] = useState([]);

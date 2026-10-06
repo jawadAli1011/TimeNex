@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import ReusableForm from "../../../utills/ResuableForm";
 import { getZones } from "../../../api/zone_api";
-import { createBranches } from "../../../api/branches_api";
+import {
+  createBranches,
+  getBranches,
+  updateBranch,
+} from "../../../api/branches_api";
+import { useParams } from "react-router-dom";
 function NewBranches() {
   const [zone, setZone] = useState([]);
+  const { id } = useParams();
 
   const fetchZones = async () => {
     try {
@@ -19,9 +25,9 @@ function NewBranches() {
 
   return (
     <ReusableForm
-      formName="Add Branch"
+      formName="Branch"
       dropdownName="zone_name"
-      dropdownLabel="Please Select Zone"
+      dropdownLabel="Zone"
       dropdownId="zone_id"
       options={zone}
       inputLabel="Branch Name"
@@ -29,14 +35,13 @@ function NewBranches() {
       descLabel="Branch Description"
       descName="branch_desc"
       postApi={createBranches}
+      getApi={getBranches}
+      updateApi={updateBranch}
       route="/branchs"
+      itemId="branch_id"
+      editId={id}
     />
   );
 }
 
 export default NewBranches;
-
-// branch api
-// zone api
-// route
-// formData

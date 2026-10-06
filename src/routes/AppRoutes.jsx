@@ -117,16 +117,19 @@ function AppRoutes() {
         <Route path="/regions">
           <Route index element={<RegionList />} />
           <Route path="create" element={<NewRegion />} />
+          <Route path="/regions/:id" element={<NewRegion />} />
         </Route>
 
         <Route path="/zones">
           <Route index element={<ZonesList />} />
           <Route path="create" element={<NewZone />} />
+          <Route path="/zones/:id" element={<NewZone />} />
         </Route>
 
         <Route path="/branchs">
           <Route index element={<BranchesList />} />
           <Route path="create" element={<NewBranches />} />
+          <Route path="/branchs/:id" element={<NewBranches />} />
         </Route>
 
         <Route path="/devices">

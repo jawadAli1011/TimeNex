@@ -33,6 +33,7 @@ function BranchesList() {
       dialogTitle="Delete Branch"
       deleteApi={deleteBranch}
       refreshApi={fetchBranches}
+      editRoute="/branchs/"
     />
   );
 }

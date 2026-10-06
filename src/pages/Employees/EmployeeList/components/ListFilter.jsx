@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
-  departments,
+  // departments,
   designations,
   getRoles,
 } from "../../../../api/dropdowns_api";
+import { departments } from "../../../../api/departments_api";
 
 function ListFilter({
   setSearchTerm,

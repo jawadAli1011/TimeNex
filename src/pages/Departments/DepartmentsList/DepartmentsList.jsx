@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReusableList from "../../../utills/resuableList";
-import { departments } from "../../../api/dropdowns_api";
+import { departments } from "../../../api/departments_api";
+// import { departments } from "../../../api/dropdowns_api";
 
 function DepartmentsList() {
   const [dept, setDept] = useState([]);

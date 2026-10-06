@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { createZones } from "../../../api/zone_api";
-import { getRegions } from "../../../api/dropdowns_api";
+import { createZones, getZones, updateZone } from "../../../api/zone_api";
+
 import ReusableForm from "../../../utills/ResuableForm";
+import { getRegions } from "../../../api/regions_api";
+import { useParams } from "react-router-dom";
 
 export default function CreateZone() {
+  const { id } = useParams();
   const [region, setRegion] = useState([]);
 
   const fetchRegions = async () => {
@@ -20,9 +23,9 @@ export default function CreateZone() {
 
   return (
     <ReusableForm
-      formName="Add Zone"
+      formName="Zone"
       dropdownName="region_name"
-      dropdownLabel="Please Select Region"
+      dropdownLabel="Region"
       dropdownId="region_id"
       options={region}
       inputLabel="Zone Name"
@@ -30,7 +33,11 @@ export default function CreateZone() {
       descLabel="Zone Description"
       descName="zone_desc"
       postApi={createZones}
+      getApi={getZones}
+      updateApi={updateZone}
       route="/zones"
+      itemId="zone_id"
+      editId={id}
     />
   );
 }

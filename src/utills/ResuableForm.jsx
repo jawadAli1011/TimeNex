@@ -2,7 +2,7 @@
 // create Zone
 // create branch
 // create regions
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -26,7 +26,11 @@ export default function ReusableForm({
   descLabel,
   descName,
   postApi,
+  updateApi,
+  getApi,
   route,
+  itemId,
+  editId,
 }) {
   const navigate = useNavigate();
   const initialFormData = {
@@ -39,6 +43,32 @@ export default function ReusableForm({
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const isEditMode = Boolean(editId);
+
+  const fetchItems = async () => {
+    try {
+      setLoading(true);
+      const response = await getApi();
+
+      const item = response.data.data.find(
+        (i) => i[itemId] === parseInt(editId),
+      );
+
+      if (item) {
+        setFormData({ ...item });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (editId) {
+      fetchItems();
+    }
+  }, [editId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,11 +89,13 @@ export default function ReusableForm({
     const newErrors = {};
 
     if (!formData[inputName]?.trim()) {
-      newErrors[inputName] = "Zone name is required";
+      newErrors[inputName] = `${formName} name is required`;
     }
 
-    if (!formData[dropdownId]) {
-      newErrors[dropdownId] = "Region is required";
+    if (formName !== "Region") {
+      if (!formData[dropdownId]) {
+        newErrors[dropdownId] = `${dropdownLabel} is required`;
+      }
     }
 
     if (!formData.address_line_1?.trim()) {
@@ -87,18 +119,32 @@ export default function ReusableForm({
       setLoading(true);
       // region_name
 
-      const payload = {
+      const payloadZoneBranch = {
         [inputName]: formData[inputName],
         [descName]: formData[descName],
-        // [dropdownName]: Number(formData[dropdownId]),
         [dropdownName === "region_name" ? dropdownName : dropdownId]: Number(
           formData[dropdownId],
         ),
-        address1: formData.address_line_1,
-        address2: formData.address_line_2,
+        address_line_1: formData.address_line_1,
+        address_line_2: formData.address_line_2,
       };
-      console.log(payload);
-      await postApi(payload);
+
+      const payloadForRegion = {
+        region_name: formData.region_name,
+        region_desc: formData.region_desc,
+        address_line_1: formData.address_line_1,
+        address_line_2: formData.address_line_2,
+        region_status: 1,
+      };
+
+      const payload =
+        formName === "Region" ? payloadForRegion : payloadZoneBranch;
+
+      if (isEditMode) {
+        await updateApi(editId, payload);
+      } else {
+        await postApi(payload);
+      }
 
       setFormData(initialFormData);
 
@@ -106,11 +152,12 @@ export default function ReusableForm({
         navigate(route);
       }
 
-      alert(` ${formData[inputName]} created successfully`);
+      alert(
+        ` ${formData[inputName]} ${formName} ${isEditMode ? "updated" : "created"} successfully`,
+      );
     } catch (error) {
-      console.error("Create zone error:", error);
-
-      alert(error.response?.data?.message || "Failed to create zone");
+      console.log(error);
+      alert(error.response?.data?.message || `Failed to create ${formName}`);
     } finally {
       setLoading(false);
     }
@@ -119,6 +166,13 @@ export default function ReusableForm({
     setFormData(initialFormData);
     setErrors({});
   };
+
+  if (loading)
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-[#92700a]" />
+      </div>
+    );
 
   return (
     <Paper
@@ -137,7 +191,7 @@ export default function ReusableForm({
           fontWeight: 600,
         }}
       >
-        {formName}
+        {`Add ${formName}`}
       </Typography>
 
       <Box component="form" onSubmit={handleSubmit} noValidate>
@@ -146,9 +200,9 @@ export default function ReusableForm({
             select
             fullWidth
             size="small"
-            label={dropdownLabel}
+            label={`Please Select ${dropdownLabel}`}
             name={dropdownId}
-            value={formData[dropdownId]}
+            value={formData[dropdownId] || ""}
             onChange={handleChange}
             error={Boolean(errors[dropdownId])}
             helperText={errors[dropdownId]}
@@ -175,7 +229,7 @@ export default function ReusableForm({
           size="small"
           label={inputLabel}
           name={inputName}
-          value={formData[inputName]}
+          value={formData[inputName] || ""}
           onChange={handleChange}
           error={Boolean(errors[inputName])}
           helperText={errors[inputName]}
@@ -197,7 +251,7 @@ export default function ReusableForm({
           size="small"
           label={descLabel}
           name={descName}
-          value={formData[descName]}
+          value={formData[descName] || ""}
           onChange={handleChange}
           multiline
           rows={3}
@@ -218,7 +272,7 @@ export default function ReusableForm({
           size="small"
           label="Address 1"
           name="address_line_1"
-          value={formData.address_line_1}
+          value={formData.address_line_1 || ""}
           onChange={handleChange}
           error={Boolean(errors.address_line_1)}
           helperText={errors.address_line_1}
@@ -240,7 +294,7 @@ export default function ReusableForm({
           size="small"
           label="Address 2"
           name="address_line_2"
-          value={formData.address_line_2}
+          value={formData.address_line_2 || ""}
           onChange={handleChange}
           sx={{
             mb: 3,

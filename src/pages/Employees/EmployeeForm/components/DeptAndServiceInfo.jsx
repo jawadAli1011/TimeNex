@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { getUnusedId } from "../../../../api/emp_api";
 import CustomDropdown from "../../../../utills/ResuableDropdown";
 import {
-  departments,
+  // departments,
   designations,
   getRoles,
 } from "../../../../api/dropdowns_api";
+import { departments } from "../../../../api/departments_api";
 
 function DeptAndServiceInfo({ formData, setFormData }) {
   const [newId, setNewId] = useState([]);
