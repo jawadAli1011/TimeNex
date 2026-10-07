@@ -26,6 +26,7 @@ export default function DepartmentForm() {
   };
 
   const [formData, setFormData] = useState(initialForm);
+  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
   // Handle input changes
@@ -70,14 +71,18 @@ export default function DepartmentForm() {
     };
 
     try {
+      setLoading(true);
       if (action === "save") {
-        navigate("/departments");
         await createDepartment(payload);
+        navigate("/departments");
       } else {
         await createDepartment(payload);
+        setFormData(initialForm);
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
 
     // API call here
@@ -250,6 +255,8 @@ export default function DepartmentForm() {
               onClick={() => handleSubmit("saveAndAddNew")}
               variant="outlined"
               sx={{
+                display: "flex",
+                gap: 1,
                 color: BASE_COLOR,
                 borderColor: BASE_COLOR,
                 textTransform: "none",
@@ -259,6 +266,9 @@ export default function DepartmentForm() {
                 },
               }}
             >
+              {loading && (
+                <div className="h-6 w-6 animate-spin rounded-full border-4 border-[#92700a] border-t-gray-200" />
+              )}
               Save & Add New
             </Button>
 
@@ -269,6 +279,8 @@ export default function DepartmentForm() {
               onClick={() => handleSubmit("save")}
               variant="contained"
               sx={{
+                display: "flex",
+                gap: 1,
                 backgroundColor: BASE_COLOR,
                 textTransform: "none",
                 "&:hover": {
@@ -276,7 +288,10 @@ export default function DepartmentForm() {
                 },
               }}
             >
-              Save
+              {loading && (
+                <div className="h-6 w-6 animate-spin rounded-full border-4 border-[#92700a] border-t-gray-200" />
+              )}
+              <span>Save</span>
             </Button>
           </Box>
         </Box>
