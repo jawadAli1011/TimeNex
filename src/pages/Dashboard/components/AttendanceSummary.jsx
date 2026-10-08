@@ -1,4 +1,3 @@
-import React from "react";
 import GetColor from "../../../utills/GetColor";
 import GitIcon from "../../../utills/GitIcon";
 

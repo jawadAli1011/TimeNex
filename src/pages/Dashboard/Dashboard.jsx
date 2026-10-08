@@ -5,20 +5,15 @@ import LiveActivity from "./components/LiveActivity";
 import AttendanceOverviewGraph from "./components/AttendanceOverviewGraph";
 import DeptBreackdownChart from "./components/DeptBreackdownChart";
 import { getDashboardData } from "../../api/dashboard_api";
-
-import PageLoader from "../../components/Loading";
 import ReusableDialog from "../../components/Modals/ReusableDialog";
 
 function Dashboard() {
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
   const present = dashboardData?.data?.drilldown_data.present || [];
   const late = dashboardData?.data?.drilldown_data.late || [];
   const totalEmployees = dashboardData?.data?.total_departmental_employees || 0;
   const onlineDevicesCount = dashboardData?.data?.online_devices_count || 0;
-  const deptStats = dashboardData?.data?.deptStats || {};
   const deptStatsDetail = dashboardData?.data?.deptStatsDetail || {};
   const stats = dashboardData?.data?.stats || {};
   const [open, setOpen] = useState(false);
@@ -28,13 +23,11 @@ function Dashboard() {
   useEffect(() => {
     const fetchDashboard = async () => {
       setLoading(true);
-      setError(null);
-
       try {
         const response = await getDashboardData();
         setDashboardData(response.data);
       } catch (err) {
-        setError(err);
+        console.error("Error fetching dashboard data:", err);
       } finally {
         setLoading(false);
       }
@@ -62,7 +55,13 @@ function Dashboard() {
     setSelectedType("");
   };
 
-  if (loading) return <PageLoader />;
+  if (loading)
+    return (
+      <div className="flex h-screen items-center justify-center  flex-col gap-2 ">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-[#92700a]" />
+        <div>Dashboard is generating, please wait...</div>
+      </div>
+    );
 
   return (
     // <!-- Header -->
@@ -78,13 +77,15 @@ function Dashboard() {
           totalEmployees={totalEmployees}
           handleOpen={handleOpen}
         />
-        <ReusableDialog
-          dashboardData={dashboardData}
-          handleClose={handleClose}
-          handleOpen={handleOpen}
-          open={open}
-          selectedType={selectedType}
-        />
+        {selectedType && (
+          <ReusableDialog
+            dashboardData={dashboardData?.data?.drilldown_data}
+            handleClose={handleClose}
+            handleOpen={handleOpen}
+            open={open}
+            selectedType={selectedType}
+          />
+        )}
         <LiveActivity late={late} present={present} />
 
         <div className="charts-grid grid grid-cols-[3fr_7fr] gap-4 mb-4 ">

@@ -8,9 +8,16 @@ import { BrowserRouter } from "react-router-dom";
 import AuthProvider from "./context/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter basename="/timenex-new">
+  // <BrowserRouter basename="/timenex-new">
+  <BrowserRouter>
     <AuthProvider>
       <App />
     </AuthProvider>
   </BrowserRouter>,
 );
+
+// main
+// env
+// vite.config.js
+// axis.js
+// authcontext.jsx

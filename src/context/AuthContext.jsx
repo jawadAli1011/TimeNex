@@ -44,14 +44,14 @@ export default function AuthProvider({ children }) {
   };
 
   const logoutUser = () => {
-    window.location.href = "/timenex-new/login";
+    // window.location.href = "/timenex-new/login";
     localStorage.removeItem("token");
     localStorage.removeItem("menu");
     localStorage.removeItem("currentUser");
     setMenu([]);
     setCompanyName(null);
     setToken(null);
-    // window.location.href = "/login";
+    window.location.href = "/login";
   };
 
   return (

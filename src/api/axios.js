@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useEffect } from "react";
+
 
 const api = axios.create({
-  // baseURL: import.meta.env.VITE_API_URL,
-  baseURL: "/timenex-new/api",
+  baseURL: import.meta.env.VITE_API_URL,
+  // baseURL: "/timenex-new/api",
   // timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -22,17 +22,17 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => {
     if(response.data?.status === "Token is Expired"){
-      window.location.href = "/timenex-new/login";
+      // window.location.href = "/timenex-new/login";
     
       localStorage.removeItem("token");
       localStorage.removeItem("menu");
-        // window.location.href = "/login";
+        window.location.href = "/login";
     }
     return response;
   },
   (error) => {
     if (error.response?.status === 401) {
-      window.location.href = "/timenex-new/login";
+      // window.location.href = "/timenex-new/login";
 
       localStorage.removeItem("token");
       localStorage.removeItem("menu");
